@@ -1,0 +1,60 @@
+employee_id,employee_name,department,position,monthly_salary
+EMP1006,Veronica Soto,Marketing,Associate,97569.0
+EMP1090,Fernanda Castro,Engineering,Senior,65015.0
+EMP1166,Isabela Rios,IT Support,Lead,111248.0
+EMP1409,Juliana Eunice Astibe,Marketing,Junior,63618.0
+EMP1525,Miguel Herrera,Sales,Junior,59251.0
+EMP1753,Maria Santos,HR,Associate,37290.0
+EMP1964,Mariana Guzmán,HR,Manager,88690.0
+EMP2193,Antonio Medina,Marketing,Lead,39342.0
+EMP2424,Miguel Cardona,Engineering,Senior,60005.0
+EMP2530,Daniela Paredes,IT Support,Associate,52092.0
+EMP2588,Luis Torres,IT Support,Junior,49949.0
+EMP2679,Raphael Petancio,Sales,Junior,81785.0
+EMP2796,Ana Bautista,Unknown,Associate,52447.0
+EMP2824,Ching Mae Abenoja,Unknown,Manager,64453.0
+EMP3170,Andres Vargas,Finance,Senior,65706.0
+EMP3184,Monica Aguilar,Operations,Associate,69710.0
+EMP3286,Sam Cunanan,Operations,Lead,29558.0
+EMP3296,Sergio Pena,HR,Senior,103560.0
+EMP3503,Cesar Rivas,IT Support,Manager,106193.0
+EMP3546,Renata Montes,Marketing,Senior,54600.0
+EMP3950,Hector Campos,Operations,Associate,84634.0
+EMP4228,Beatriz Salazar,Operations,Lead,93170.0
+EMP4258,Raul Cabrera,Finance,Senior,103055.0
+EMP4470,Paola Ibarra,Operations,Associate,79177.0
+EMP4475,Rosa Mendoza,Operations,Lead,91781.0
+EMP4510,Claudia Suarez,HR,Senior,90513.0
+EMP4657,Harold Gorospe,Finance,Manager,85443.0
+EMP4978,Pedro Villanueva,HR,Senior,65508.0
+EMP5010,Alfredo Cordova,Operations,Senior,94943.0
+EMP5012,John Dominic San Agustin,IT Support,Associate,47541.0
+EMP5119,Patricia Ruiz,Operations,Junior,76985.0
+EMP5135,Pablo Rojas,Operations,Lead,80012.0
+EMP5291,Javier Miranda,Operations,Senior,109783.0
+EMP5349,Sofia Castillo,Finance,Manager,77132.0
+EMP5497,Gabriela Vega,IT Support,Manager,57512.0
+EMP5506,Rhuzzel Rabe,Engineering,Senior,35189.0
+EMP5542,Carlos Reyes,Marketing,Lead,98234.0
+EMP5558,Eduardo Espinoza,Engineering,Senior,106980.0
+EMP5573,Constanza Mejia,Unknown,Manager,58722.0
+EMP5915,Jorge Flores,Engineering,Lead,73225.0
+EMP6000,Alejandro Fuentes,Engineering,Junior,22671.0
+EMP6553,Ricardo Delgado,Operations,Senior,73221.5
+EMP6862,Jose Cruz,Marketing,Lead,105461.0
+EMP6947,Carmen Ramos,Engineering,Senior,95340.0
+EMP7615,Valentina Gutierrez,Marketing,Associate,80332.0
+EMP7930,Fernando Molina,Sales,Manager,27665.0
+EMP8018,Oscar Leon,IT Support,Lead,113961.0
+EMP8019,Adriana Nunez,Unknown,Associate,23718.0
+EMP8433,Roberto Navarro,Unknown,Senior,103238.0
+EMP9004,Marco Sandoval,Finance,Junior,43276.0
+EMP9022,Emilio Perez,Marketing,Associate,76420.0
+EMP9179,Lucia Romero,Operations,Senior,111004.0
+EMP9494,Diego Jimenez,IT Support,Associate,72082.0
+EMP9666,Camila Ortiz,IT Support,Senior,93464.0
+EMP9727,Salvador Bernal,Sales,Associate,24373.0
+EMP9751,Lorena Acosta,HR,Lead,104070.0
+EMP9920,Natalia Silva,Finance,Manager,98094.0
+EMP9935,Hillary Anne Gambao,HR,Junior,38730.0
+EMP9938,Elena Morales,Marketing,Senior,31104.0

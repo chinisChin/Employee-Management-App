@@ -1,0 +1,16 @@
+# Python environment exclusions
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Sensitive database settings or local SQLite DBs
+*.db
+*.sqlite
+config.json
+secrets.ini
+
+# IDE configurations
+.vscode/
+.idea/

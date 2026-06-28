@@ -1,0 +1,531 @@
+employee_id,employee_name,department,position,date,attendance_status,hours_worked,tasks_completed,performance_rating,monthly_salary
+EMP2824,Ching Mae Abenoja,,Manager,08/03/2024,Absent,6.11,3,3.1,64453
+EMP1409,Juliana Eunice Astibe,Marketting,Junior,28/07/2024,On Leave,6.7,10,3.1,63618
+EMP5506,Rhuzzel Rabe,Engineering,Senior,07/01/2023,On Leave,8.66,4,3.4,35189
+EMP5012,John Dominic San Agustin,IT Support,Associate,11/12/2023,Present,6.36,8,3.4,47541
+EMP4657,Harold Gorospe,Finance,Manager,28/09/2023,Work From Home,8.82,9,2.8,85443
+EMP3286,Sam Cunanan,Operations,Lead,22/03/2023,Work From Home,7.93,7,3,29558
+EMP2679,Raphael Petancio,Sales,Junior,08/11/2024,Present,6.8,6,4.6,81785
+EMP9935,Hillary Anne Gambao,HR,Junior,25/01/2024,Absent,6.97,7,,38730
+EMP2424,Miguel Cardona,Engineering,Senior,19/12/2024,Work From Home,9.28,3,0,60005
+EMP9666,Camila Ortiz,Operations,Manager,12/01/2023,Absent,3.14,11,10,35495
+EMP1166,Isabela Rios,HR,Associate,07/10/2023,Late,8.43,9,2.4,43777
+EMP8019,  Adriana Nunez  ,Sales,Associate,24/04/2023,Present,10.16,11,2.5,106787
+EMP1166,Isabela Rios,IT Support,Lead,07/12/2024,Absent,,13,1.5,111248
+EMP5542,Carlos Reyes,Marketing,Associate,26/10/2023,Work From Home,,9,2,68270
+EMP5558,Eduardo Espinoza,Operations,Senior,28/02/2024,Absent,0.65,4,5,64914
+EMP9179,Lucia Romero,Engineering,Junior,05/05/2024,On Leave,10.97,6,4.7,92362
+EMP6947,Carmen Ramos,Operations,Junior,18/10/2024,Work From Home,8.64,2,1.2,29514
+EMP9179,Lucia Romero,Operations,Senior,04/12/2024,Absent,4.14,4,3,111004
+EMP5558,Eduardo Espinoza,Finance,Associate,13/05/2024,Work From Home,7.63,5,1.7,57858
+EMP5119,Patricia Ruiz,Operations,Associate,08/01/2024,On Leave,,9,2.6,64350
+EMP4470,Paola Ibarra,Operations,Senior,19/01/2023,Absent,4.35,5,2.4,83736
+EMP2796,Ana Bautista,Engineering,Junior,12/04/2024,Absent,0.61,11,2.1,80846
+EMP3503,Cesar Rivas,Sales,Associate,07/03/2023,Work From Home,4.98,10,2.9,28161
+EMP9022,Emilio Perez,Finance,Senior,08/01/2024,On Leave,9.9,7,2.3,101232
+EMP4470,Paola Ibarra,Operations,Associate,31/12/2024,On Leave,3.74,11,4.6,79177
+EMP9494,Diego Jimenez,Marketing,Senior,18/02/2023,Late,10.39,10,1.5,68237
+EMP5291,Javier Miranda,Marketing,Manager,11/05/2024,On Leave,0,8,1.3,57450
+EMP2530,Daniela Paredes,Marketing,Lead,05/10/2023,Present,3.68,7,3.9,61359
+EMP3184,Monica Aguilar, Finance,Lead,14/11/2024,On Leave,6.37,10,3.5,114276
+EMP4228,Beatriz Salazar,Operations,Lead,18/11/2024,Absent,4.3,9,4.4,93170
+EMP9938,Elena Morales,Sales,Senior,06/04/2023,Work From Home,0.53,7,-1,68823
+EMP6553,Ricardo Delgado,Operations,Manager,03/11/2023,Work From Home,10.12,10,3.5,46330
+EMP3296,Sergio Pena,Marketing,Senior,15/04/2023,On Leave,1.59,,2.8,92710
+EMP5558,Eduardo Espinoza,Finance,Junior,30/04/2024,Absent,,7,4,91529
+EMP4510,Claudia Suarez,HR,Lead,11/12/2023,present,8.03,12,4.4,36728
+EMP5135,Pablo Rojas,HR,Senior,30/05/2023,On Leave,1.65,9,3.8,
+EMP8433,Roberto Navarro,HR,Manager,23/05/2024,Late,10.92,15,1.9,21671
+EMP8433,Roberto Navarro,HR,Senior,27/05/2024,Late,9.14,3,4.4,86540
+EMP3170,Andres Vargas,HR,Junior,23/08/2023,Late,11.54,0,3.3,119125
+EMP7930,Fernando Molina,Sales,Associate,02/11/2023,Present,,11,3.2,92754
+EMP9938,Elena Morales,HR,Senior,19/08/2024,Absent,6.63,13,1.2,67795
+EMP9666,Camila Ortiz,Engineering,Senior,05/08/2023,Absent,4.95,4,1.7,100856
+EMP8433,Roberto Navarro,,Senior,27/12/2024,Present,2.71,9,2,103238
+EMP5497,Gabriela Vega,Engineering,Lead,05/08/2023,Late,5.94,10,2.4,95750
+EMP5119,Patricia Ruiz,Sales,Senior,22/09/2024,On Leave,9.7,15,2.7,115817
+EMP1753,Maria Santos,IT Support,Senior,01/03/2023,Work From Home,9.7,15,2.4,96544
+EMP3170,Andres Vargas,Marketing,Associate,04/12/2024,Present,,2,4.3,32219
+EMP2193,Antonio Medina,Marketting,Lead,06/10/2024,On Leave,6.91,12,2.6,39342
+EMP7930,Fernando Molina,engineering,Manager,18/01/2024,Absent,8.43,1,3,113959
+EMP5291,Javier Miranda,Finance,Senior,28/06/2023,Absent,8.49,11,3.7,42983
+EMP9938,Elena Morales,Engineering,Junior,05/11/2023,Work From Home,5.05,3,2.1,99381
+EMP6862,Jose Cruz,Marketing,Lead,23/12/2024,On Leave,10.96,,5,105461
+EMP9494,Diego Jimenez,IT Support,Associate,01/09/2024,Present,3.09,2,2.6,72082
+EMP2193,Antonio Medina,Operations,Manager,25/12/2023,Present,4.13,8,2.1,70667
+EMP9727,Salvador Bernal,Sales,Associate,05/10/2024,Late,1.17,1,4.2,24373
+EMP4258,Raul Cabrera,Engineering,Senior,15/06/2023,Work From Home,-1,0,2.3,
+EMP1525,Miguel Herrera,Engineering,Junior,11/09/2023,Work From Home,7.88,8,4.3,116607
+EMP7615,Valentina Gutierrez,Marketing,Senior,24/11/2023,Absent,,2,1.6,70205
+EMP5915,Jorge Flores,Engineering,Lead,11/11/2024,Work From Home,11.28,5,3.3,73225
+EMP1006,Veronica Soto,HR,Manager,08/05/2023,Late,3.42,5,2.8,
+EMP5915,Jorge Flores,Engineering,Senior,22/10/2024,Present,-1,9,4.4,106298
+EMP2193,Antonio Medina,Marketing,Lead,10/04/2023,Late,5.26,14,1.3,25856
+EMP2796,Ana Bautista,Marketing,Lead,03/09/2024,Late,10.59,15,3.1,34089
+EMP9727,Salvador Bernal,IT Support,Junior,01/07/2023,On Leave,11.42,15,4,119598
+EMP5497,Gabriela Vega,HR,Lead,06/12/2023,On Leave,8.29,1,4.7,68816
+EMP9938,Elena Morales,,Lead,13/03/2023,Present,1.7,0,4,48197
+EMP8019,Adriana Nunez,,Associate,05/11/2024,Work From Home,7.49,10,1.2,23718
+EMP9004,Marco Sandoval,IT Support,Lead,03/07/2023,Work From Home,1.28,3,1.6,45156
+EMP8433,Roberto Navarro,IT Support,Associate,27/02/2024,On Leave,0.3,10,4.2,116345
+EMP1006,Veronica Soto,,Junior,19/08/2023,On Leave,11.91,3,4.8,104896
+EMP1166,Isabela Rios,IT Support,Manager,27/11/2024,Present,7.33,4,6,64444
+EMP9938,Elena Morales,IT Support,Lead,04/04/2023,On Leave,11.36,7,4.5,23495
+EMP5558,Eduardo Espinoza,IT Support,Senior,17/04/2023,On Leave,2.46,7,0,27850
+EMP3170,Andres Vargas,Engineering,Manager,29/03/2024,Work From Home,9.96,11,3.2,99087
+EMP3184,Monica Aguilar,Marketing,Associate,20/02/2024,Present,8.23,9,3.6,58671
+EMP7930,Fernando Molina,HR,Senior,22/03/2023,Late,4.16,14,4,48047
+EMP9179,Lucia Romero,Sales,Manager,15/05/2024,Present,1.09,14,,87272
+EMP3503,Cesar Rivas,Marketing,Junior,26/01/2024,Work From Home,4.65,10,1.2,117474
+EMP5558,Eduardo Espinoza,Sales,Junior,20/08/2024,Late,8.5,6,,49145
+EMP1006,Veronica Soto,IT Support,Lead,18/08/2023,Late,3.86,13,2.1,30208
+EMP5497,Gabriela Vega,it support,Manager,03/12/2024,Work From Home,9.34,,4,57512
+EMP3546,Renata Montes,Sales,Lead,20/04/2023,Absent,3.05,6,1.5,71497
+EMP7615,Valentina Gutierrez,,Junior,16/02/2024,Present,5.27,6,1.6,57914
+EMP9938,Elena Morales,Finance,Junior,10/05/2023,Present,6.03,10,4.5,77711
+EMP1006,Veronica Soto,SALES,Manager,24/06/2024,Absent,5.08,9,2.2,26258
+EMP9179,Lucia Romero,HR,Manager,01/08/2023,Late,7.04,7,4.1,98116
+EMP9751,Lorena Acosta,Engineering,Senior,21/09/2024,WFH,7.08,4,1.5,
+EMP5010,Alfredo Cordova,Operations,Senior,07/11/2024,Present,3.38,7,1.2,94943
+EMP4475,Rosa Mendoza,Marketing,Senior,10/11/2023,Absent,5.35,13,3.8,66077
+EMP6000,Alejandro Fuentes,Engineering,Junior,29/10/2024,Absent,0.48,0,1.8,22671
+EMP5558,Eduardo Espinoza,Operations,Lead,27/02/2023,late,,5,3,76873
+EMP5542,Carlos Reyes,Finance,Lead,29/06/2023,Work From Home,1.55,7,3.2,107562
+EMP3184,Monica Aguilar,Sales,Associate,24/03/2024,On Leave,9.57,2,3.7,38242
+EMP5915,Jorge Flores,Sales,Senior,30/04/2024,Work From Home,6.23,4,4.6,38321
+EMP8019,Adriana Nunez,Operations,Lead,06/01/2024,Work From Home,2.63,4,3,119061
+EMP4475,Rosa Mendoza,HR,Manager,29/09/2023,Work From Home,7.81,13,3.6,85278
+EMP2530,Daniela Paredes,Operations,Lead,27/10/2024,Work From Home,99.9,10,2.5,61505
+EMP2796,  Ana Bautista  ,IT Support,Manager,08/11/2024,ABSENT,3.61,11,4.1,61662
+EMP5558,Eduardo Espinoza,engineering,Senior,03/11/2024,WFH,11.57,4,1.3,106980
+EMP5291,Javier Miranda,Operations,Senior,19/10/2024,Absent,11.48,15,4.2,109783
+EMP2588,Luis Torres,HR,Junior,22/09/2023,On Leave,2.66,7,2.5,80694
+EMP9666,Camila Ortiz,Operations,Manager,23/10/2023,Late,5.27,14,3.8,55683
+EMP9179,Lucia Romero,Marketing,Manager,28/05/2023,Late,3.75,10,4.9,37139
+EMP5291,Javier Miranda,Sales,Lead,08/07/2024,Absent,0.43,2,3.5,57667
+EMP5558,  Eduardo Espinoza  ,Marketing,Manager,17/10/2023,Work From Home,0.3,11,4.2,78400
+EMP8433,Roberto Navarro,,Senior,24/10/2023,Absent,6.87,3,4.9,73948
+EMP9494,Diego Jimenez,Marketing,Manager,25/05/2024,Absent,,1,2.1,37172
+EMP6862,Jose Cruz,Operations,Manager,23/09/2024,On Leave,2.95,9,2.6,92179
+EMP9004,Marco Sandoval,Marketing,Junior,05/04/2023,Present,7.61,,1,37146
+EMP9179,Lucia Romero,IT Support,Lead,03/02/2024,Work From Home,10.86,0,2.5,20772
+EMP2588,  Luis Torres  ,HR,Associate,03/05/2024,Work From Home,,7,3.7,21217
+EMP3184,Monica Aguilar,Marketing,Senior,21/08/2024,Present,4.57,11,3.7,81797
+EMP3170,Andres Vargas,Finance,Lead,27/09/2023,Work From Home,2.71,8,1.2,118596
+EMP8018,Oscar Leon,Marketing,Manager,28/05/2024,Late,10.96,5,4.7,83156
+EMP4510,Claudia Suarez,HR,Senior,29/10/2024,Present,2.31,2,1.7,90513
+EMP9751,Lorena Acosta,Finance,Senior,18/09/2024,On Leave,,4,4.7,34802
+EMP8019,Adriana Nunez,Finance,Manager,20/10/2024,Late,7.62,10,1.6,28950
+EMP7615,Valentina Gutierrez,Engineering,Junior,21/02/2023,Work From Home,3.48,12,2.7,40932
+EMP4510,Claudia Suarez,Engineering,Manager,19/10/2024,Present,11.49,1,4.8,107584
+EMP6947,Carmen Ramos,Sales,Manager,07/12/2024,On Leave,2.22,6,2.1,97278
+EMP7615,Valentina Gutierrez,Engineering,Junior,14/04/2023,Work From Home,7.13,14,6,26380
+EMP9494,Diego Jimenez,IT Support,Manager,05/10/2023,Absent,11.2,8,,117110
+EMP9666,Camila Ortiz,Engineering,Manager,13/09/2024,Late,6.11,,3.6,51370
+EMP4510,Claudia Suarez,HR,Junior,07/02/2024,Absent,6.07,7,3.3,26377
+EMP8019,Adriana Nunez,Engineering,Associate,21/02/2023,Absent,,,1.2,74172
+EMP8433,Roberto Navarro,IT Support,Associate,11/09/2024,Present,1.66,8,3.6,68655
+EMP9179,Lucia Romero,Finance,Lead,27/05/2023,Work From Home,3.18,7,3.2,117912
+EMP7930,Fernando Molina,IT Support,Lead,28/08/2023,On Leave,6.41,9,4.6,45430
+EMP2193,Antonio Medina,Marketing,Lead,10/04/2023,Late,5.26,14,1.3,25856
+EMP3184,Monica Aguilar,Operations,Associate,14/12/2024,Present,-1,2,1.4,69710
+EMP6000,Alejandro Fuentes,Sales,Associate,30/08/2023,Absent,1.23,8,1.7,40036
+EMP6553,Ricardo Delgado,Operations,Lead,27/05/2023,Present,3.8,5,3,
+EMP8018,Oscar Leon,Marketing,Senior,11/06/2023,Late,8.54,5,3,35907
+EMP4475,Rosa Mendoza,Sales,Manager,22/01/2023,Absent,0,10,5,94000
+EMP9004,Marco Sandoval,,Junior,30/04/2024,on leave,10.94,5,4.2,49329
+EMP5915,Jorge Flores,Sales,Associate,12/03/2023,Work From Home,6.37,0,3.6,77684
+EMP9179,Lucia Romero,Finance,Associate,13/12/2023,Present,1.29,13,4.7,108098
+EMP7615,Valentina Gutierrez,Finance,Manager,13/04/2024,Work From Home,25,15,3.1,102831
+EMP9727,Salvador Bernal,Operatons,Associate,28/09/2023,Absent,7.93,5,1.7,29838
+EMP3296,Sergio Pena,Engineering,Lead,31/03/2023,Late,,10,3.8,92089
+EMP9920,Natalia Silva,HR ,Associate,13/08/2023,Absent,11.49,15,-1,99395
+EMP6553,Ricardo Delgado,HR,Junior,26/05/2023,On Leave,4.18,10,4.1,88303
+EMP2588,Luis Torres,Finance,Senior,12/10/2024,Absent,,14,2.7,116180
+EMP4978,Pedro Villanueva,HR,Senior,01/12/2024,Work From Home,7.2,3,4.1,65508
+EMP5349,Sofia Castillo,Sales,Lead,23/07/2024,ABSENT,5.95,11,4.1,61777
+EMP9751,Lorena Acosta,HR,Lead,08/11/2024,Late,8.72,15,,104070
+EMP9666,Camila Ortiz,HR,Lead,05/02/2023,Present,6.03,4,4.8,78856
+EMP6947,Carmen Ramos,HR,Lead,21/02/2023,On Leave,2.02,13,,70165
+EMP8433,Roberto Navarro,HR,Lead,06/04/2024,Late,8.27,,1.1,
+EMP6947,  Carmen Ramos  ,IT Support,Senior,03/09/2023,Present,0.7,2,3.9,29071
+EMP5558,Eduardo Espinoza,HR,Senior,28/02/2024,Work From Home,4.65,2,4.6,51816
+EMP5558,Eduardo Espinoza,Marketing,Senior,11/05/2023,Work From Home,2.13,0,2.6,94381
+EMP7615,Valentina Gutierrez,,Manager,15/02/2024,Late,6.29,12,,49041
+EMP5135,Pablo Rojas,,Junior,06/04/2023,Late,8.77,14,4.4,
+EMP2530,Daniela Paredes,IT Support,Manager,01/10/2023,Late,9.85,9,4.3,96011
+EMP9004,Marco Sandoval,Operations,Lead,24/03/2024,On Leave,0.97,1,3.9,99129
+EMP5497,Gabriela Vega,Marketing,Lead,16/03/2023,On Leave,8.26,5,2.7,
+EMP4978,  Pedro Villanueva  ,Marketing,Manager,20/09/2024,Late,11.46,12,1.1,55825
+EMP3950,Hector Campos,Marketing,Junior,29/05/2024,Absent,8.08,1,1.9,87603
+EMP2588,Luis Torres,engineering,Manager,19/05/2023,Work From Home,4.66,11,2.7,117290
+EMP5558,Eduardo Espinoza,Engineering,Manager,19/09/2024,Work From Home,0.65,5,4.4,84990
+EMP6947,Carmen Ramos,Finance,Manager,14/07/2023,Present,3.06,13,3.1,90575
+EMP6000,Alejandro Fuentes,Operations,Manager,26/11/2023,Present,4.66,5,2.3,48707
+EMP4475,Rosa Mendoza,Sales,Manager,01/02/2024,Late,2.22,,1.7,25848
+EMP4470,Paola Ibarra,it support,Senior,14/05/2023,Present,6.68,10,2.6,107207
+EMP6862,Jose Cruz,Operatons,Manager,22/11/2023,Work From Home,11.05,7,1.4,85035
+EMP4228,Beatriz Salazar,,Associate,29/12/2023,Late,2.58,5,2.1,39481
+EMP5349,Sofia Castillo,Engineering,Associate,17/07/2023,Present,1.51,13,5,77067
+EMP5119,Patricia Ruiz,Operations,Senior,20/06/2023,present,4.46,8,4.1,23847
+EMP5915,Jorge Flores,Marketing,Lead,25/11/2023,Work From Home,3.23,13,3.6,44633
+EMP5010,Alfredo Cordova,Operations,Senior,07/11/2024,Present,3.38,7,1.2,94943
+EMP3503,Cesar Rivas,Finance,Lead,03/04/2024,Late,9.52,2,1.9,110673
+EMP2588,Luis Torres,HR,Lead,14/12/2023,Absent,9.61,3,1.8,90292
+EMP5558,Eduardo Espinoza,Finance,Associate,13/05/2024,Work From Home,7.63,5,1.7,57858
+EMP1006,Veronica Soto,Marketing,Senior,16/06/2024,Work From Home,5.5,0,3.4,74997
+EMP4510,Claudia Suarez,HR,Junior,27/02/2023,Present,2.79,7,3.1,20089
+EMP5349,Sofia Castillo,HR,Junior,02/09/2024,On Leave,5.21,10,3.4,87033
+EMP3296,Sergio Pena,,Associate,10/03/2023,Late,2.83,11,2.5,94349
+EMP9494,Diego Jimenez,Sales,Junior,02/02/2023,on leave,9.71,13,4.1,22050
+EMP5291,Javier Miranda,Engineering,Associate,06/03/2023,Present,8.59,14,2.2,25741
+EMP9751,Lorena Acosta,Operatons,Associate,10/05/2023,Work From Home,5.68,3,4.8,80952
+EMP8019,Adriana Nunez,Engineering,Associate,17/04/2024,Late,7.65,14,3.7,80981
+EMP1753,Maria Santos,Engineering,Manager,21/12/2023,Late,7.63,0,1,106154
+EMP9022,Emilio Perez,Marketing,Associate,24/10/2024,Late,7.35,12,4.9,76420
+EMP3296,Sergio Pena,Marketing,Junior,24/05/2024,Present,8.94,0,2.6,24696
+EMP9920,Natalia Silva,HR,Manager,24/07/2023,Work From Home,7.11,5,1.1,115317
+EMP6947,Carmen Ramos,Finance,Associate,01/06/2023,Present,6.8,3,3.3,33237
+EMP7930,Fernando Molina,Finance,Lead,05/05/2023,Absent,0.35,7,2.2,21792
+EMP4510,Claudia Suarez,Finance,Senior,13/07/2024,Work From Home,,15,3.6,110067
+EMP4258,Raul Cabrera,Engineering,Senior,25/11/2023,On Leave,7.24,6,2.3,72198
+EMP4510,Claudia Suarez,,Junior,25/04/2024,Absent,9.14,10,2.5,74254
+EMP2796,Ana Bautista,HR,Associate,05/11/2023,Late,11.34,4,2.2,35726
+EMP2588,Luis Torres,IT Support,Junior,01/11/2024,On Leave,7.81,6,2.8,49949
+EMP4510,Claudia Suarez,Finance,Junior,04/09/2023,Work From Home,5.99,2,4.6,21581
+EMP9666,Camila Ortiz,HR,Manager,10/05/2023,Work From Home,3.29,1,2.2,36551
+EMP2530,Daniela Paredes,Operations,Manager,09/05/2024,Absent,8.45,13,3.4,
+EMP8018,Oscar Leon,HR,Junior,04/08/2023,On Leave,8.04,6,,46945
+EMP3546,Renata Montes,Engineering,Junior,27/05/2024,Present,0,11,1.4,50427
+EMP3184,Monica Aguilar,IT Support,Manager,13/05/2023,Present,7.34,2,2.2,113969
+EMP6553,Ricardo Delgado,Sales,Lead,03/05/2024,Late,7.81,9,2.1,27754
+EMP5558,Eduardo Espinoza,Sales,Associate,03/02/2024,Present,3.8,3,1,60405
+EMP3546,Renata Montes,Finance,Manager,27/04/2023,On Leave,8.95,15,4.1,87271
+EMP1964,Mariana Guzmán,Engineering,Junior,02/02/2023,Work From Home,10.32,2,2,107684
+EMP2796,Ana Bautista,Operations,Lead,22/08/2024,Work From Home,5.8,5,1.7,36827
+EMP8018,Oscar Leon,Marketing,Associate,13/04/2024,Work From Home,,15,3,95066
+EMP9666,Camila Ortiz,Engineering,Junior,28/01/2024,Absent,6.04,9,1.3,25992
+EMP9920,Natalia Silva,Sales,Manager,27/03/2024,On Leave,5.54,9,3,74874
+EMP4510,Claudia Suarez,Engineering,Junior,01/08/2024,Late,0.37,7,1.1,49470
+EMP9751,Lorena Acosta,Operations,Senior,29/12/2023,Present,3.21,12,2.5,73218
+EMP8433,  Roberto Navarro  ,HR,Lead,25/11/2023,Present,2.89,8,3,92154
+EMP1525,Miguel Herrera,Finance,Manager,09/09/2023,Late,5.99,10,4.1,84044
+EMP2796,  Ana Bautista  ,Engineering,Associate,27/11/2024,On Leave,5.07,2,2.5,81348
+EMP2796,Ana Bautista, Finance,Associate,31/08/2023,On Leave,,10,3.8,116384
+EMP5573,Constanza Mejia,,Manager,08/12/2024,Present,6.01,11,2.9,58722
+EMP4258,Raul Cabrera,HR,Junior,09/06/2023,Present,1.89,1,2.1,106761
+EMP9666,Camila Ortiz,IT Support,Associate,19/04/2024,On Leave,10.98,,3.2,37575
+EMP9751,Lorena Acosta,HR,Lead,29/08/2024,Present,6.77,0,3.6,37786
+EMP6862,Jose Cruz,Operations,Associate,26/11/2024,Late,5.4,11,2.8,30077
+EMP4228,Beatriz Salazar,Operations,Junior,08/10/2024,Late,7.77,2,1.4,108916
+EMP7615,Valentina Gutierrez,HR,Lead,08/01/2024,Absent,4.6,4,4.7,24635
+EMP9938,Elena Morales,HR,Junior,06/01/2023,Work From Home,6.87,12,3.2,31157
+EMP5573,Constanza Mejia,Engineering,Associate,22/07/2023,Present,9.88,11,3.3,53924
+EMP1964,Mariana Guzmán,Sales,Senior,02/04/2024,Absent,0.14,,0,65938
+EMP9022,Emilio Perez,Operations,Associate,28/02/2024,Work From Home,3.61,1,4.8,116365
+EMP3296,Sergio Pena,Finance,Associate,31/12/2023,On Leave,6.64,12,1.7,96791
+EMP3950,Hector Campos,Engineering,Associate,22/03/2023,Work From Home,7.31,12,3.7,85230
+EMP2796,Ana Bautista,,Associate,19/12/2024,Absent,10.39,7,3.8,52447
+EMP2193,Antonio Medina,IT Support,Junior,12/11/2023,On Leave,9.42,15,6,54734
+EMP5915,Jorge Flores,Finance,Senior,16/03/2023,Present,0.11,3,,86307
+EMP2530,Daniela Paredes,IT Support,Associate,19/11/2024,Absent,3.73,6,1.1,52092
+EMP2796,Ana Bautista,,Junior,27/02/2024,Present,,7,3.8,21198
+EMP2588,Luis Torres,HR,Senior,24/06/2023,Present,10.66,5,3.2,
+EMP5291,Javier Miranda,Marketing,Junior,27/12/2023,Work From Home,6.75,13,2.1,75363
+EMP1090,Fernanda Castro,Marketing,Associate,08/10/2023,Late,1.12,11,1.3,107098
+EMP1964,Mariana Guzmán,Marketing,Lead,14/03/2023,Work From Home,8.25,8,3.6,45928
+EMP9666,Camila Ortiz,Operations,Lead,20/10/2024,Work From Home,9.5,4,1.4,107878
+EMP9666,  Camila Ortiz  ,IT Support,Senior,22/12/2024,Late,25,15,2.9,93464
+EMP5558,Eduardo Espinoza,Sales,Senior,01/07/2024,Present,7.48,1,3.6,22587
+EMP9920,Natalia Silva,Sales,Senior,04/03/2023,Present,4.78,6,4.8,79600
+EMP9666,Camila Ortiz,Engineering,Associate,13/06/2024,Work From Home,9.19,1,2.6,61888
+EMP2588,Luis Torres,Operations,Lead,16/01/2023,wfh,8.67,13,1.3,54737
+EMP2588,Luis Torres,IT Support,Junior,10/01/2023,Late,10.22,5,2.4,77372
+EMP5349,Sofia Castillo,HR,Senior,04/05/2024,On Leave,1.37,2,3,95631
+EMP4978,Pedro Villanueva,engineering,Senior,14/09/2024,Late,1.78,4,3.5,96724
+EMP9179,Lucia Romero,Operations,Lead,18/01/2024,On Leave,0.73,15,1.1,89758
+EMP4470,Paola Ibarra,Operations,Lead,27/12/2024,Present,7.68,9,2.6,62568
+EMP5291,Javier Miranda,Engineering,Associate,06/03/2023,Present,8.59,14,2.2,25741
+EMP9666,Camila Ortiz,HR,Manager,03/11/2023,Absent,11.18,3,2.1,34029
+EMP3296,Sergio Pena,Engineering,Lead,11/05/2024,Present,9.11,11,3.1,40836
+EMP5558,Eduardo Espinoza,HR ,Manager,30/10/2024,On Leave,5.94,15,3.8,78176
+EMP5573,Constanza Mejia,IT Support,Associate,13/09/2024,Absent,9.62,7,3.5,108835
+EMP5135,Pablo Rojas,Operations,Lead,17/09/2024,Late,4.71,3,2.4,80012
+EMP5291,  Javier Miranda  ,Marketing,Associate,16/09/2023,On Leave,,13,1.3,98372
+EMP3503,Cesar Rivas,Sales,Junior,29/03/2023,Work From Home,8.02,13,1.9,27993
+EMP3546,Renata Montes,Marketing,Senior,11/09/2024,Absent,2.53,10,3.7,54600
+EMP5010,Alfredo Cordova,Sales,Junior,20/09/2023,Late,7.73,14,2.1,26564
+EMP2530,Daniela Paredes,Operations,Associate,14/05/2023,Late,4.09,5,1.2,39360
+EMP3950,Hector Campos,Marketing,Manager,30/10/2023,Present,11.91,9,,106275
+EMP8433,Roberto Navarro,Marketing,Senior,30/05/2023,late,10.07,9,4,24234
+EMP4978,Pedro Villanueva,Finance,Lead,27/11/2024,late,6.21,4,3.6,43850
+EMP8018,Oscar Leon,Marketing,Senior,16/09/2024,Late,5.81,7,3.2,
+EMP5119,Patricia Ruiz,Marketting,Junior,10/03/2024,Work From Home,0.95,5,2.2,33447
+EMP5135,Pablo Rojas,Marketing,Junior,18/02/2024,Work From Home,10.38,0,2.8,27104
+EMP5573,Constanza Mejia,,Lead,29/05/2024,On leave,10.93,1,3.1,59862
+EMP5558,Eduardo Espinoza,Engineering,Senior,28/07/2023,On Leave,3.96,2,4.4,32119
+EMP5573,Constanza Mejia,Operations,Associate,24/03/2024,Absent,0.52,11,4.9,100031
+EMP5349,Sofia Castillo,Marketing,Junior,27/04/2024,Work From Home,1.54,8,4.1,43995
+EMP9938,Elena Morales,Marketing,Junior,01/09/2023,Absent,4.16,10,6,31629
+EMP5558,Eduardo Espinoza,IT Support,Lead,16/09/2023,WFH,10.02,15,4,26826
+EMP1166,Isabela Rios,Engineering,Junior,05/12/2023,Late,1.95,14,3.9,21846
+EMP5349,Sofia Castillo,Finance,Manager,29/10/2024,Absent,5.31,8,5,77132
+EMP9022,Emilio Perez,IT Support,Associate,02/04/2024,Late,6.46,11,3.2,91228
+EMP7930,Fernando Molina,Sales,Senior,28/04/2023,Absent,5.62,2,4,49571
+EMP9494,  Diego Jimenez  ,IT Support,Associate,31/08/2023,Late,9.48,0,3.2,68353
+EMP5558,Eduardo Espinoza,HR,Junior,16/04/2023,Absent,3.76,9,2.5,118717
+EMP9666,Camila Ortiz,Engineering,Junior,28/01/2024,Absent,6.04,9,1.3,25992
+EMP9727,Salvador Bernal,Marketing,Manager,29/07/2024,On Leave,1.27,7,1.5,78929
+EMP1753,Maria Santos,HR,Associate,27/03/2024,Absent,5.48,13,5,37290
+EMP9938,Elena Morales,HR,Associate,21/03/2024,late,3.31,9,4.1,67333
+EMP5291,Javier Miranda,Operations,Lead,24/07/2023,Absent,1.16,6,,30739
+EMP3296,Sergio Pena,Operations,Manager,13/09/2023,Absent,1.14,3,1.5,28083
+EMP1090,Fernanda Castro,Engineering,Junior,10/02/2024,On Leave,7.51,7,3.6,112235
+EMP8433,Roberto Navarro,HR,Lead,06/04/2024,Late,8.27,,1.1,
+EMP6553,Ricardo Delgado,Operations,Senior,05/12/2024,Late,7.55,15,4.9,
+EMP8433,Roberto Navarro,Marketing,Lead,11/12/2024,Work From Home,,12,1.1,31542
+EMP6000,Alejandro Fuentes,Sales,Associate,05/10/2024,Work From Home,8.98,13,3.7,48474
+EMP5542,Carlos Reyes,Sales,Senior,04/05/2023,Absent,11.86,13,2.9,50008
+EMP4475,Rosa Mendoza,Marketing,Associate,07/08/2023,Late,7.96,10,2.2,118652
+EMP5349,Sofia Castillo,Engineering,Manager,22/11/2023,Work From Home,9.67,11,,111823
+EMP2588,  Luis Torres  ,Finance,Manager,12/09/2024,On Leave,10.59,12,4.9,110769
+EMP2588,Luis Torres,Sales,Lead,29/12/2023,Present,5.08,14,3.7,104696
+EMP1006,Veronica Soto,Operations,Junior,04/04/2023,late,9.5,9,3.2,105799
+EMP3503,Cesar Rivas,IT Support,Manager,31/08/2024,Present,7.66,2,4.1,106193
+EMP3503,Cesar Rivas,Marketing,Lead,30/04/2023,Late,1.68,1,5,35220
+EMP9022,Emilio Perez,HR,Associate,19/11/2023,Work From Home,0.19,6,1.6,113416
+EMP9179,Lucia Romero,,Lead,23/06/2023,Work From Home,7.91,9,3.7,101167
+EMP3950,Hector Campos,Engineering,Manager,11/01/2024,Absent,,8,4.8,23396
+EMP7615,Valentina Gutierrez,Marketing,Associate,19/12/2024,On Leave,,1,1.9,80332
+EMP9751,Lorena Acosta,Operations,Lead,28/07/2024,Present,9.88,0,3.7,78414
+EMP2530,Daniela Paredes, Finance,Senior,12/07/2023,On leave,1.98,12,1.9,115311
+EMP9004,Marco Sandoval,Finance,Junior,27/01/2023,Work From Home,1.08,2,3.4,62523
+EMP9727,Salvador Bernal,Finance,Junior,18/01/2023,Late,7.05,0,1.9,27925
+EMP3184,Monica Aguilar,Marketing,Associate,22/04/2024,late,3.63,12,1.4,87045
+EMP5135,Pablo Rojas,Marketing,Lead,12/08/2024,On Leave,9.38,10,,71502
+EMP9022,Emilio Perez,Finance,Junior,25/09/2024,Present,3.54,7,,40214
+EMP3296,Sergio Pena,Finance,Associate,13/10/2023,On Leave,5.55,2,4.2,92132
+EMP3296,Sergio Pena,HR,Junior,13/01/2024,Present,9.98,2,3.5,86462
+EMP5497,Gabriela Vega,IT Support,Lead,11/06/2024,Present,3.94,12,1.7,38430
+EMP9727,Salvador Bernal,Finance,Manager,16/09/2024,Present,8.02,10,3,62600
+EMP5349,Sofia Castillo,engineering,Junior,05/01/2023,Absent,5.42,6,3.3,40766
+EMP5010,Alfredo Cordova,HR,Associate,17/04/2023,Work From Home,4.99,15,3.7,43758
+EMP1753,Maria Santos,Operations,Manager,02/12/2023,Present,,7,,80852
+EMP4258,Raul Cabrera,Finance,Senior,08/04/2024,Present,1.37,7,2.4,103055
+EMP8019,Adriana Nunez,Marketing,Senior,09/09/2023,Late,9.97,2,4.5,51963
+EMP9004,Marco Sandoval,HR,Lead,11/02/2023,Absent,5.14,,1.6,53425
+EMP9727,Salvador Bernal,IT Support,Associate,12/05/2023,Late,7.92,5,3.1,99507
+EMP9179,Lucia Romero,IT Support,Lead,02/03/2023,On Leave,25,0,2.1,79638
+EMP2530,  Daniela Paredes  ,IT Support,Associate,20/03/2023,wfh,6.13,3,,65793
+EMP8433,Roberto Navarro,Marketing,Manager,12/03/2024,On Leave,11.5,7,3.5,44430
+EMP5497,Gabriela Vega,Operations,Associate,17/08/2023,Late,10.02,0,2.9,114253
+EMP1006,Veronica Soto,HR ,Lead,07/06/2023,On Leave,0.65,0,1.4,106772
+EMP6947,Carmen Ramos,,Manager,11/01/2024,On Leave,6.5,1,3.2,75725
+EMP2193,Antonio Medina,Operations,Lead,01/07/2024,Work From Home,6.08,13,1.1,67124
+EMP6862,Jose Cruz,Operations,Associate,30/05/2023,Late,0.19,13,1.6,63236
+EMP1006,Veronica Soto,Sales,Senior,26/01/2024,On Leave,11.94,9,3,76387
+EMP2796,Ana Bautista,Engineering,Manager,08/08/2023,Absent,10.29,7,2.1,73674
+EMP3546,Renata Montes,Engineering,Manager,16/03/2023,Present,0.54,11,10,27897
+EMP5135,Pablo Rojas,IT Support,Senior,25/01/2024,Late,5.6,11,2,87215
+EMP1964,Mariana Guzmán,HR,Manager,23/10/2024,On Leave,2.07,7,5,88690
+EMP5497,Gabriela Vega,HR,Senior,16/06/2023,Work From Home,6.77,12,2.3,119039
+EMP6000,Alejandro Fuentes,Finance,Manager,20/02/2023,Absent,8.13,8,,73004
+EMP9938,Elena Morales,Operations,Senior,05/02/2024,Late,7.04,2,3.8,115677
+EMP3950,Hector Campos,Sales,Junior,22/08/2023,wfh,8.89,0,4.4,21610
+EMP2796,Ana Bautista,Sales,Junior,02/03/2024,Work From Home,99.9,3,2,111995
+EMP1525,  Miguel Herrera  ,IT Support,Senior,15/02/2024,Work From Home,99.9,6,4.5,61245
+EMP8018,Oscar Leon,Finance,Manager,03/11/2023,Late,5.7,0,,34366
+EMP1006,Veronica Soto,Marketing,Associate,02/10/2024,Work From Home,3.63,2,3.6,97569
+EMP4228,Beatriz Salazar,Sales,Lead,24/07/2024,Present,4.39,12,2.1,36199
+EMP9666,Camila Ortiz,Marketing,Lead,16/06/2024,On Leave,,10,4.6,37536
+EMP5573,Constanza Mejia,Engineering,Lead,12/11/2023,Present,5.56,3,1.6,109922
+EMP2193,Antonio Medina,HR,Junior,14/10/2023,Absent,4.6,13,3.6,88919
+EMP3503,Cesar Rivas,Finance,Lead,02/06/2023,wfh,3.6,5,2.9,49536
+EMP5010,Alfredo Cordova,Sales,Lead,16/04/2024,ABSENT,2.02,11,1.6,91636
+EMP7615,Valentina Gutierrez,Marketing,Manager,13/01/2024,On Leave,5.68,,5,92140
+EMP5915,  Jorge Flores  ,HR,Senior,01/09/2023,Absent,7.07,0,2.1,36614
+EMP3184,  Monica Aguilar  ,Sales,Junior,17/08/2024,On Leave,1.15,4,,94425
+EMP5558,Eduardo Espinoza,Finance,Senior,13/07/2023,ABSENT,11.77,7,2.5,73841
+EMP1753,Maria Santos,Engineering,Manager,21/12/2023,Late,7.63,0,1,106154
+EMP5119,Patricia Ruiz,Engineering,Junior,04/06/2024,Present,0.96,5,3.4,108501
+EMP5497,Gabriela Vega,Marketing,Manager,26/11/2024,Absent,1.92,0,4.4,108878
+EMP5119,Patricia Ruiz,Operations,Junior,27/11/2024,Late,8.65,8,1.4,76985
+EMP4228,Beatriz Salazar,Engineering,Junior,02/11/2024,Late,5.97,9,4.6,73031
+EMP5291,Javier Miranda,Sales,Lead,10/02/2024,On Leave,0.35,6,3.4,70965
+EMP6553,Ricardo Delgado,,Lead,13/02/2024,Late,4.99,3,2.7,107177
+EMP9751,Lorena Acosta,Marketing,Junior,17/01/2024,Present,9.78,5,2.6,79839
+EMP3170,Andres Vargas,IT Support,Junior,02/01/2023,On Leave,0.58,14,4.9,74266
+EMP9751,Lorena Acosta,Engineering,Associate,31/07/2023,Work From Home,9.67,,2.1,90617
+EMP3296,Sergio Pena,Engineering,Manager,20/10/2023,Absent,8.33,15,,29706
+EMP9920,Natalia Silva,Marketing,Manager,29/10/2023,On Leave,5.57,3,1.2,103151
+EMP5010,Alfredo Cordova,Finance,Manager,25/02/2024,Absent,9.23,2,4.9,104192
+EMP5349,Sofia Castillo,Finance,Associate,30/12/2023,Late,9.57,10,4.5,111905
+EMP5135,Pablo Rojas,Operations,Senior,16/06/2023,ABSENT,4.72,9,2.3,86809
+EMP5542,Carlos Reyes,IT Support,Associate,14/05/2023,Present,6.48,5,3.6,
+EMP5558,Eduardo Espinoza,Finance,Lead,16/12/2023,Late,1.89,9,4.1,94395
+EMP3296,Sergio Pena,IT Support,Junior,31/08/2023,Work From Home,,11,3.5,41755
+EMP2530,Daniela Paredes,HR,Junior,17/03/2023,Work From Home,0.65,,1.3,49837
+EMP9938,Elena Morales,Sales,Lead,18/08/2023,Work From Home,10.17,11,2.5,119956
+EMP4470,Paola Ibarra,Engineering,Senior,10/01/2024,Present,9.17,11,2.6,94747
+EMP1525,Miguel Herrera,Engineering,Lead,17/03/2023,Late,9.59,1,1.1,54226
+EMP9727,Salvador Bernal,IT Support,Lead,16/05/2024,On Leave,1.71,8,2.5,29898
+EMP2193,Antonio Medina,Finance,Senior,09/10/2023,Work From Home,7.1,11,1.3,80521
+EMP9938,Elena Morales,Finance,Senior,05/06/2024,On Leave,8.46,13,4.9,51946
+EMP3296,Sergio Pena,IT Support,Lead,20/01/2024,Late,0.96,4,1.5,90419
+EMP7615,Valentina Gutierrez,Sales,Manager,28/09/2024,Late,2.93,1,2.5,34860
+EMP1753,Maria Santos,HR,Lead,16/02/2024,On Leave,5.12,3,3.8,78138
+EMP3950,Hector Campos,Engineering,Junior,20/08/2024,Absent,5.77,12,4.3,51745
+EMP5010,Alfredo Cordova,Marketing,Manager,13/11/2023,On Leave,8,10,3.8,92667
+EMP6000,Alejandro Fuentes,Operations,Junior,24/10/2023,Work From Home,9.44,9,1.3,77367
+EMP8018,Oscar Leon,Sales,Senior,12/03/2023,Present,6.07,10,4.4,84251
+EMP4470,Paola Ibarra,Finance,Lead,31/01/2024,On Leave,4.07,5,3.8,68148
+EMP1090,Fernanda Castro,Marketting,Lead,29/08/2023,Work From Home,0.95,14,2.8,85333
+EMP8018,Oscar Leon,IT Support,Lead,24/10/2024,wfh,9.8,2,1.1,113961
+EMP9920,Natalia Silva,Finance,Manager,27/04/2024,Absent,9.09,6,3.7,98094
+EMP4228,Beatriz Salazar,Marketing,Lead,13/03/2023,late,11.39,10,2.3,36334
+EMP3546,Renata Montes,Marketing,Senior,04/08/2024,Absent,0,6,3.4,103719
+EMP9666,Camila Ortiz,IT Support,Manager,11/02/2023,Absent,2.58,,1.4,52534
+EMP9666,Camila Ortiz,Sales,Associate,03/05/2023,Present,0.15,,,65443
+EMP4978,Pedro Villanueva,Marketing,Senior,17/10/2024,On leave,3.9,8,3.6,105389
+EMP9727,Salvador Bernal,Finance,Junior,22/10/2023,late,7.2,11,3.3,47884
+EMP7615,Valentina Gutierrez,HR,Manager,10/09/2023,WFH,6.95,1,1.3,106163
+EMP5558,Eduardo Espinoza,Finance,Manager,21/07/2024,On Leave,,1,4.6,94928
+EMP2588,Luis Torres,Engineering,Junior,18/06/2023,On Leave,5.39,10,1.5,66961
+EMP3170,Andres Vargas,Marketing,Junior,08/09/2023,late,4.43,5,4.3,112214
+EMP1006,Veronica Soto,HR,Lead,26/04/2024,Late,0.52,12,2,
+EMP4258,Raul Cabrera,HR,Senior,19/10/2023,Absent,5.45,15,4.4,81344
+EMP4510,Claudia Suarez,Operations,Associate,07/08/2024,On Leave,6.91,7,4.2,44957
+EMP4470,Paola Ibarra,SALES,Manager,28/03/2024,Work From Home,4.97,6,6,76349
+EMP9022,Emilio Perez,IT Support,Senior,28/07/2024,Late,7.77,9,3.7,83142
+EMP8433,Roberto Navarro,HR,Junior,06/12/2023,On Leave,2.47,6,3.8,114638
+EMP5542,Carlos Reyes,Sales,Associate,30/07/2023,ABSENT,3.34,2,6,90371
+EMP6862,Jose Cruz,Finance,Junior,21/04/2024,on leave,10.39,9,1.3,79866
+EMP1006,Veronica Soto,IT Support,Lead,12/09/2024,Work From Home,7.15,7,2.5,78028
+EMP5915,Jorge Flores,Engineering,Senior,06/04/2024,present,7.43,11,2.9,45575
+EMP8019,  Adriana Nunez  ,,Manager,14/03/2023,Work From Home,5.67,6,1.5,109220
+EMP5010,Alfredo Cordova,Marketing,Senior,05/05/2023,On Leave,6.88,12,4.3,39198
+EMP8019,Adriana Nunez,HR,Lead,13/04/2024,On Leave,,4,1,116497
+EMP6000,Alejandro Fuentes,Marketing,Lead,05/03/2024,On Leave,6.46,7,1.9,77125
+EMP9727,Salvador Bernal,Engineering,Senior,12/02/2024,On Leave,11.56,9,4.2,38111
+EMP6000,Alejandro Fuentes,IT Support,Associate,17/08/2023,On Leave,0.28,,2.3,29099
+EMP5915,Jorge Flores,Operations,Lead,18/12/2023,Present,10.73,1,1.4,
+EMP7615,Valentina Gutierrez,Engineering,Junior,21/02/2023,Work From Home,3.48,12,2.7,40932
+EMP4978,Pedro Villanueva,HR,Junior,22/07/2023,Absent,10.83,14,1.4,63456
+EMP6000,Alejandro Fuentes,IT Support,Junior,20/12/2023,Work From Home,2.89,3,,63583
+EMP1964,Mariana Guzmán,HR ,Junior,18/12/2023,Absent,7.78,,3.1,92339
+EMP2588,Luis Torres,Sales,Associate,01/11/2023,On Leave,,1,2.1,31401
+EMP9494,Diego Jimenez,HR,Senior,14/11/2023,Late,6.18,15,1.1,104790
+EMP9179,Lucia Romero,IT Support,Manager,01/05/2024,Late,3.25,2,4.6,93860
+EMP5497,Gabriela Vega,Operations,Junior,11/12/2023,Absent,3.62,4,3.9,77261
+EMP6000,Alejandro Fuentes,Marketting,Manager,26/05/2023,On Leave,6.76,6,3.2,43010
+EMP5542,Carlos Reyes,Operations,Junior,26/01/2023,Present,4.57,,1.8,118328
+EMP9938,Elena Morales,Marketing,Senior,02/11/2024,Absent,8.38,12,3.4,31104
+EMP7930,Fernando Molina,IT Support,Manager,19/12/2023,On Leave,10.53,,,94976
+EMP5497,Gabriela Vega,Marketing,Manager,25/01/2024,On Leave,9.65,10,2.3,105332
+EMP8019,Adriana Nunez,Operations,Manager,20/11/2023,Late,11.22,6,,71876
+EMP5542,Carlos Reyes,Marketing,Lead,27/12/2024,Absent,11.25,1,4.7,98234
+EMP9920,Natalia Silva,Marketing,Associate,01/02/2024,Late,,13,3.2,42645
+EMP5558,Eduardo Espinoza,,Junior,30/06/2024,Present,2.39,11,6,119201
+EMP6553,Ricardo Delgado,Engineering,Junior,20/06/2024,Work From Home,11.7,2,3.2,86535
+EMP4475,Rosa Mendoza,HR,Associate,07/05/2023,Late,7.07,12,4.9,61222
+EMP1006,Veronica Soto,Marketing,Senior,04/08/2023,On Leave,5.16,10,2.8,108555
+EMP3184,Monica Aguilar,Operatons,Senior,26/02/2023,Late,6,5,1.6,33487
+EMP2530,Daniela Paredes,Sales,Lead,13/04/2023,Present,8.17,4,4.9,40701
+EMP3503,Cesar Rivas,Engineering,Lead,18/04/2023,Late,6.14,3,,33928
+EMP5291,Javier Miranda,Operations,Manager,22/09/2024,Late,1.83,2,1.3,46633
+EMP5291,Javier Miranda,it support,Lead,16/04/2023,On Leave,10.47,9,2.9,64657
+EMP6862,Jose Cruz,Engineering,Associate,13/11/2024,Work From Home,1.23,13,4,51029
+EMP5497,Gabriela Vega,Operations,Senior,05/10/2024,On Leave,8.55,,3.8,30803
+EMP1090,Fernanda Castro,IT Support,Junior,11/03/2024,Present,2.63,14,3.2,35906
+EMP2588,Luis Torres,IT Support,Associate,10/02/2023,Late,10.23,11,2.7,35191
+EMP9494,Diego Jimenez,IT Support,Associate,29/10/2023,Absent,5.39,2,4.8,116348
+EMP7930,Fernando Molina,Sales,Manager,11/06/2023,Work From Home,0.89,11,6,75615
+EMP1753,Maria Santos,Marketing,Junior,28/10/2023,Absent,4.3,13,2,74008
+EMP6000,Alejandro Fuentes,HR,Lead,13/02/2023,Present,5.23,14,4.4,95465
+EMP5291,Javier Miranda,Engineering,Lead,18/07/2024,Present,8.47,0,1.3,110573
+EMP9004,Marco Sandoval,Operations,Associate,28/05/2023,Work From Home,3.5,0,2.4,94798
+EMP3503,  Cesar Rivas  ,Marketing,Lead,06/11/2023,On Leave,2.39,12,1.4,69986
+EMP1753,Maria Santos,Marketing,Senior,15/11/2023,Present,0,15,4.9,49878
+EMP5010,Alfredo Cordova,Marketting,Lead,01/11/2024,Work From Home,1.19,15,2.6,56666
+EMP5119,Patricia Ruiz,Engineering,Associate,17/06/2024,On Leave,0.82,5,3.2,72876
+EMP1525,Miguel Herrera,Sales,Junior,20/03/2024,On Leave,11.74,3,1.7,59251
+EMP8019,Adriana Nunez,HR,Senior,12/08/2024,On Leave,8.13,12,4.8,45995
+EMP6947,Carmen Ramos,SALES,Manager,13/05/2024,Present,6.32,9,1.9,98554
+EMP4470,Paola Ibarra,HR,Manager,19/08/2023,Absent,7.77,8,1.3,41747
+EMP5349,Sofia Castillo,Marketing,Senior,21/07/2023,On Leave,5.49,8,3.1,103769
+EMP7615,Valentina Gutierrez,Sales,Manager,20/01/2023,On Leave,11.87,11,3.2,83527
+EMP4978,Pedro Villanueva,Marketing,Manager,18/02/2024,Absent,1.63,0,1.8,46309
+EMP4510,Claudia Suarez,SALES,Manager,24/07/2023,Late,9.34,6,3.8,58712
+EMP6862,Jose Cruz,Operations,Junior,15/07/2023,On Leave,0.23,10,1.6,110505
+EMP6553,Ricardo Delgado,Finance,Junior,06/03/2023,Present,3.14,10,,108857
+EMP5119,Patricia Ruiz,Engineering,Junior,23/11/2024,Absent,0.05,,3.8,65134
+EMP8433,Roberto Navarro,IT Support,Manager,16/04/2024,Present,9.98,11,2.7,33875
+EMP5010,Alfredo Cordova,Engineering,Lead,24/01/2024,Late,3.24,7,,27331
+EMP8018,Oscar Leon,Sales,Associate,22/02/2023,Present,3.22,1,1.8,119837
+EMP5119,Patricia Ruiz,IT Support,Manager,01/08/2024,Work From Home,2.69,10,3.1,111826
+EMP5291,Javier Miranda,IT Support,Lead,04/04/2023,Late,5.64,13,2.3,33710
+EMP5291,Javier Miranda,Sales,Junior,05/06/2023,Present,1.79,9,5,35525
+EMP8019,Adriana Nunez,Sales,Manager,11/08/2023,Late,5.75,10,4.8,22009
+EMP4258,Raul Cabrera,Finance,Junior,26/06/2023,Work From Home,3.3,4,3.4,110919
+EMP6862,Jose Cruz,,Senior,11/08/2023,Late,5.32,7,1.4,109873
+EMP3170,Andres Vargas,Engineering,Lead,31/08/2024,Present,7.4,14,1.5,
+EMP5135,Pablo Rojas,Marketing,Lead,06/10/2023,Absent,2.8,,4.1,96638
+EMP3184,Monica Aguilar,Operations,Associate,28/01/2024,Present,2.29,4,2.1,74387
+EMP4978,Pedro Villanueva,Marketing,Junior,14/09/2023,Late,1.18,15,2.4,107988
+EMP6947,Carmen Ramos,Engineering,Associate,07/03/2023,Work From Home,4.06,7,1.9,29305
+EMP8019,Adriana Nunez,,Associate,03/04/2023,On Leave,10.92,10,1.7,37322
+EMP5291,Javier Miranda,IT Support,Junior,17/02/2024,Late,6.19,8,2.8,83968
+EMP3170,Andres Vargas, Finance,Senior,30/12/2024,on leave,11.6,,4.6,65706
+EMP8018,Oscar Leon,Finance,Manager,24/01/2024,On Leave,9.88,7,2.4,
+EMP1006,Veronica Soto,Engineering,Senior,20/07/2024,Work From Home,3.46,12,2.8,92070
+EMP4228,Beatriz Salazar,Marketing,Junior,16/08/2023,On Leave,4.26,9,10,63426
+EMP6553,Ricardo Delgado,Finance,Manager,01/03/2023,Present,6.71,9,2.6,20395
+EMP7615,Valentina Gutierrez,HR,Associate,30/03/2023,On Leave,11.1,3,3.4,
+EMP3170,Andres Vargas,Finance,Lead,06/04/2024,Late,7.56,13,1.1,108250
+EMP1525,Miguel Herrera,IT Support,Manager,23/11/2023,Absent,6.93,10,2.2,38777
+EMP4510,Claudia Suarez,IT Support,Junior,13/05/2023,On Leave,7.37,13,2.7,82573
+EMP9727,Salvador Bernal,Sales,Lead,04/04/2024,Present,7.38,2,2,39597
+EMP5558,Eduardo Espinoza,IT Support,Manager,04/03/2024,Work From Home,11.59,15,4.5,82424
+EMP1006,Veronica Soto,Finance,Junior,18/01/2023,Work From Home,6.35,8,4.9,22246
+EMP7930,Fernando Molina,Sales,Manager,08/11/2024,Absent,8.62,4,2.2,27665
+EMP2530,Daniela Paredes,IT Support,Lead,06/10/2023,Work From Home,6.29,8,3.5,85031
+EMP5119,  Patricia Ruiz  ,HR,Senior,24/09/2024,Absent,1.57,12,1.6,110812
+EMP6862,Jose Cruz,IT Support,Lead,22/05/2024,Present,25,9,,94443
+EMP9179,Lucia Romero,Operations,Lead,18/01/2024,On Leave,0.73,15,1.1,89758
+EMP1090,Fernanda Castro,Engineering,Senior,11/09/2024,Present,5.71,4,2.8,65015
+EMP9727,Salvador Bernal,Operations,Manager,17/10/2023,Late,11.77,6,1.9,43519
+EMP2588,Luis Torres,HR,Manager,16/01/2023,Absent,11.63,7,2.6,83092
+EMP8018,Oscar Leon,Sales,Senior,12/03/2023,Present,6.07,10,4.4,84251
+EMP4475,Rosa Mendoza,Operations,Lead,24/06/2024,Work From Home,8.45,2,1.4,91781
+EMP9179,Lucia Romero,Finance,Manager,18/09/2024,Absent,,1,3.1,93516
+EMP5573,Constanza Mejia,,Manager,26/08/2023,Absent,6.42,1,2.7,43040
+EMP5135,Pablo Rojas,Sales,Lead,22/06/2024,On Leave,4.52,5,4.6,64869
+EMP6947,Carmen Ramos,Engineering,Senior,11/12/2024,On Leave,1.7,12,3.4,95340
+EMP1090,Fernanda Castro,IT Support,Senior,02/08/2024,Work From Home,11.73,3,4.7,50115
+EMP9004,Marco Sandoval,Finance,Manager,01/04/2024,On Leave,10.77,15,2,52406
+EMP9004,  Marco Sandoval  ,Engineering,Manager,03/07/2024,Work From Home,1.8,10,2.8,109167
+EMP9666,Camila Ortiz,IT Support,Manager,15/03/2024,Work From Home,3.66,1,4.8,33006
+EMP3950,Hector Campos,Operations,Associate,02/12/2024,Late,4.57,4,2.2,84634
+EMP3170,Andres Vargas,Engineering,Junior,05/07/2023,Work From Home,8.05,1,2.8,92045
+EMP8019,Adriana Nunez,Sales,Manager,04/03/2023,Present,,1,3.3,85909
+EMP9022,Emilio Perez,HR,Junior,10/08/2024,Present,8.03,4,4.1,29836
+EMP9004,Marco Sandoval,Finance,Junior,28/11/2024,On Leave,99.9,11,3.4,43276
+EMP1166,Isabela Rios,Operations,Associate,15/03/2024,Work From Home,10.14,0,4.7,110894
+EMP3296,Sergio Pena,HR,Senior,21/09/2024,Present,11.98,8,1.3,103560
+EMP8019,Adriana Nunez,HR,Lead,30/05/2024,Work From Home,2.66,1,2.2,104323
+EMP5135,Pablo Rojas,Operations,Senior,14/07/2023,Work From Home,9.16,15,,60441
+EMP2193,  Antonio Medina  ,Marketing,Associate,07/01/2023,On Leave,3.13,7,4,
+EMP8019,Adriana Nunez,Finance,Associate,13/07/2024,WFH,9.13,7,1,73744
+EMP6000,Alejandro Fuentes,IT Support,Lead,15/04/2023,Work From Home,7.39,7,2.6,86967
+EMP3503,Cesar Rivas,Marketing,Senior,21/06/2023,Absent,7.27,3,4.9,34168
+EMP1006,Veronica Soto,Marketing,Associate,23/07/2023,Work From Home,7.23,12,1.2,25100
+EMP6553,Ricardo Delgado,HR,Lead,29/05/2024,wfh,4.49,12,2.5,23694
+EMP5915,Jorge Flores,Engineering,Junior,26/08/2024,Late,6.06,3,3.8,
+EMP3184,Monica Aguilar,Engineering,Junior,24/09/2023,On Leave,4.55,6,2.3,119775
+EMP4978,Pedro Villanueva,Finance,Junior,21/10/2023,On Leave,4.91,4,2.5,70132
+EMP2796,Ana Bautista, Finance,Associate,12/08/2024,Late,10.16,12,4.7,42768
+EMP3546,Renata Montes,Engineering,Lead,14/06/2024,Late,4.64,3,4.1,112279
+EMP1166,Isabela Rios,Operations,Associate,29/03/2023,On Leave,2.9,13,3.2,51499
+EMP9494,Diego Jimenez,Engineering,Associate,08/06/2023,Work From Home,0.93,3,4.1,116815
+EMP5915,Jorge Flores,HR,Senior,13/07/2024,On Leave,4.06,5,4.9,82722
+EMP5573,Constanza Mejia,Marketing,Manager,14/02/2024,Present,8.15,10,1.5,54237
