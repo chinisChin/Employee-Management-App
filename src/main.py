@@ -11,7 +11,6 @@ class EmployeeManagementApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Employee Management System")
-        self.geometry("1150://720")
         self.geometry("1200x750")
         self.configure(fg_color="#121212")
         self.raw_file_path = None
@@ -27,7 +26,7 @@ class EmployeeManagementApp(ctk.CTk):
 
         title = ctk.CTkLabel(frame, text="Employee Management System", font=("Arial", 28, "bold"), text_color="#ff4a75")
         title.pack(pady=(60, 10))
-        sub = ctk.CTkLabel(frame, text="A Database System", font=("Arial", 13), text_color="#b0b0b0")
+        sub = ctk.CTkLabel(frame, text="A Database and Data Analytics System", font=("Arial", 13), text_color="#b0b0b0")
         sub.pack(pady=5)
 
         open_btn = ctk.CTkButton(frame, text="Open System", font=("Arial", 14, "bold"), fg_color="#ff4a75", hover_color="#e03e63", height=40, command=self.show_file_selection_screen)
@@ -40,7 +39,12 @@ class EmployeeManagementApp(ctk.CTk):
 
         ctk.CTkButton(top_bar, text="← Back", width=70, fg_color="#2b2b2b", command=self.show_welcome_screen).pack(side="left", padx=15, pady=15)
         ctk.CTkLabel(top_bar, text="Data Ingestion Preview", font=("Arial", 16, "bold")).pack(side="left", padx=10)
-        ctk.CTkButton(top_bar, text="Select Uncleaned CSV", fg_color="#ff4a75", hover_color="#e03e63", command=self.browse_uncleaned_file).pack(side="right", padx=15, pady=15)
+        
+        # Ingestion Button Triggers
+        self.action_btn_frame = ctk.CTkFrame(top_bar, fg_color="transparent")
+        self.action_btn_frame.pack(side="right", padx=15, pady=15)
+        
+        ctk.CTkButton(self.action_btn_frame, text="Select Uncleaned CSV", fg_color="#ff4a75", hover_color="#e03e63", command=self.browse_uncleaned_file).pack(side="left", padx=5)
 
         self.preview_container = ctk.CTkFrame(self.main_container, fg_color="#1e1e1e", corner_radius=10)
         self.preview_container.pack(fill="both", expand=True, padx=20, pady=20)
@@ -53,17 +57,26 @@ class EmployeeManagementApp(ctk.CTk):
         if file_path:
             self.raw_file_path = file_path
             for w in self.preview_container.winfo_children(): w.destroy()
+            for w in self.action_btn_frame.winfo_children(): w.destroy()
             
+            # Put the buttons back but append the specific clean operation selector option
+            ctk.CTkButton(self.action_btn_frame, text="Re-select File", fg_color="#2b2b2b", command=self.browse_uncleaned_file).pack(side="left", padx=5)
+            ctk.CTkButton(self.action_btn_frame, text="Clean & Ingest Dataset 🚀", fg_color="#57CC99", hover_color="#3ca877", command=self.prompt_cleaning_routine).pack(side="left", padx=5)
+
             df = pd.read_csv(file_path, nrows=10)
-            tree = ttk.Treeview(self.preview_container, columns=list(df.columns), show="headings")
+            
+            # Style Preview treeview to be charcoal/pink matching theme parameters
+            style = ttk.Style()
+            style.configure("Preview.Treeview", background="#1e1e1e", foreground="white", fieldbackground="#1e1e1e", rowheight=24)
+            style.configure("Preview.Treeview.Heading", background="#1a1a1a", foreground="#ff4a75", font=("Arial", 9, "bold"))
+
+            tree = ttk.Treeview(self.preview_container, columns=list(df.columns), show="headings", style="Preview.Treeview")
             for c in df.columns:
                 tree.heading(c, text=c)
                 tree.column(c, width=100, anchor="center")
             for _, r in df.iterrows():
                 tree.insert("", "end", values=[str(v) for v in r])
             tree.pack(fill="both", expand=True, padx=15, pady=15)
-            
-            self.after(400, self.prompt_cleaning_routine)
 
     def prompt_cleaning_routine(self):
         if messagebox.askyesno("Clean Routine", "Do you want to clean this file and migrate parameters to local SQL?"):
@@ -73,7 +86,6 @@ class EmployeeManagementApp(ctk.CTk):
     def show_main_dashboard_view(self):
         self.clear_main_container()
         
-        # Upper Nav Banner with reset control
         top_nav = ctk.CTkFrame(self.main_container, fg_color="#1a1a1a", height=50)
         top_nav.pack(side="top", fill="x")
         ctk.CTkButton(top_nav, text="↺ Disconnect & Reset to Welcome", fg_color="#cf2a4b", hover_color="#a81d37", command=self.show_welcome_screen).pack(side="right", padx=15, pady=10)
@@ -88,7 +100,6 @@ class EmployeeManagementApp(ctk.CTk):
         self.setup_crud_directory_tab()
         self.setup_selectable_analytics_tab()
 
-    # --- CRUD TAB ---
     def setup_crud_directory_tab(self):
         left_crud = ctk.CTkFrame(self.tab_directory, fg_color="#1e1e1e", width=280)
         left_crud.pack(side="left", fill="y", padx=10, pady=10)
@@ -110,11 +121,16 @@ class EmployeeManagementApp(ctk.CTk):
         ctk.CTkButton(left_crud, text="Save / Update Record", fg_color="#57CC99", hover_color="#3ca877", command=self.crud_save).pack(pady=10, padx=15, fill="x")
         ctk.CTkButton(left_crud, text="Delete Selection", fg_color="#cf2a4b", hover_color="#a81d37", command=self.crud_delete).pack(pady=5, padx=15, fill="x")
 
-        # Right Grid Container
         right_grid = ctk.CTkFrame(self.tab_directory, fg_color="#1e1e1e")
         right_grid.pack(side="right", fill="both", expand=True, padx=10, pady=10)
 
-        self.tree = ttk.Treeview(right_grid, columns=("id", "name", "dept", "pos", "salary"), show="headings")
+        # Resetting main view grid colors to elegant dark charcoal & pop pink highlight styles
+        style = ttk.Style()
+        style.configure("Grid.Treeview", background="#1e1e1e", foreground="white", rowheight=28, fieldbackground="#1e1e1e", borderwidth=0)
+        style.map('Grid.Treeview', background=[('selected', '#ff4a75')], foreground=[('selected', 'white')])
+        style.configure("Grid.Treeview.Heading", background="#1a1a1a", foreground="#ff4a75", font=("Arial", 10, "bold"))
+
+        self.tree = ttk.Treeview(right_grid, columns=("id", "name", "dept", "pos", "salary"), show="headings", style="Grid.Treeview")
         for col, h in zip(("id", "name", "dept", "pos", "salary"), ("Employee ID", "Name", "Department", "Position", "Salary")):
             self.tree.heading(col, text=h)
             self.tree.column(col, width=110, anchor="center")
@@ -139,15 +155,29 @@ class EmployeeManagementApp(ctk.CTk):
             self.ent_sal.delete(0, 'end'); self.ent_sal.insert(0, clean_sal)
 
     def crud_save(self):
+        # Fix: Safely fetching previous values for fields left empty during a manual form update
+        emp_id = self.ent_id.get()
+        if not emp_id:
+            messagebox.showwarning("Warning", "Employee ID is required to map parameters.")
+            return
+
         conn = get_db_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM employees WHERE employee_id = %s", (emp_id,))
+        existing = cursor.fetchone()
+
+        # Fallback to existing attributes if a text box is left blank
+        name = self.ent_name.get() if self.ent_name.get() else (existing['employee_name'] if existing else "")
+        dept = self.ent_dept.get() if self.ent_dept.get() else (existing['department'] if existing else "Unknown")
+        pos = self.ent_pos.get() if self.ent_pos.get() else (existing['position'] if existing else "Staff")
+        sal = float(self.ent_sal.get()) if self.ent_sal.get() else (existing['monthly_salary'] if existing else 0.0)
+
         query = """
             INSERT INTO employees (employee_id, employee_name, department, position, monthly_salary)
             VALUES (%s, %s, %s, %s, %s)
             ON DUPLICATE KEY UPDATE employee_name=%s, department=%s, position=%s, monthly_salary=%s
         """
-        vals = (self.ent_id.get(), self.ent_name.get(), self.ent_dept.get(), self.ent_pos.get(), float(self.ent_sal.get() or 0))
-        cursor.execute(query, vals + vals[1:])
+        cursor.execute(query, (emp_id, name, dept, pos, sal, name, dept, pos, sal))
         conn.commit(); conn.close()
         self.reload_grid(); messagebox.showinfo("CRUD", "Database Record Saved Successfully.")
 
@@ -158,7 +188,6 @@ class EmployeeManagementApp(ctk.CTk):
         conn.commit(); conn.close()
         self.reload_grid(); messagebox.showinfo("CRUD", "Record Erased from Server.")
 
-    # --- SELECTABLE ANALYTICS TAB ---
     def setup_selectable_analytics_tab(self):
         ctrl_panel = ctk.CTkFrame(self.tab_analytics, fg_color="#1e1e1e", height=60)
         ctrl_panel.pack(side="top", fill="x", padx=10, pady=5)
