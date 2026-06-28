@@ -172,21 +172,48 @@ class EmployeeManagementApp(ctk.CTk):
         pos = self.ent_pos.get() if self.ent_pos.get() else (existing['position'] if existing else "Staff")
         sal = float(self.ent_sal.get()) if self.ent_sal.get() else (existing['monthly_salary'] if existing else 0.0)
 
+        # --- FIX: ADD UPDATE CONFIRMATION ---
+        if existing:
+            confirm = messagebox.askyesno("Confirm Update", f"Are you sure you want to modify the record for Employee ID: {emp_id}?")
+            if not confirm:
+                cursor.close(); conn.close()
+                return
+        # -------------------------------------
+
         query = """
             INSERT INTO employees (employee_id, employee_name, department, position, monthly_salary)
             VALUES (%s, %s, %s, %s, %s)
             ON DUPLICATE KEY UPDATE employee_name=%s, department=%s, position=%s, monthly_salary=%s
         """
         cursor.execute(query, (emp_id, name, dept, pos, sal, name, dept, pos, sal))
-        conn.commit(); conn.close()
-        self.reload_grid(); messagebox.showinfo("CRUD", "Database Record Saved Successfully.")
+        conn.commit(); cursor.close(); conn.close()
+        self.reload_grid()
+        messagebox.showinfo("CRUD Success", "Database Record Saved Successfully.")
 
     def crud_delete(self):
+        emp_id = self.ent_id.get()
+        if not emp_id:
+            messagebox.showwarning("Warning", "Please select or type an Employee ID to delete.")
+            return
+
+        # --- FIX: ADD DELETE CONFIRMATION ---
+        confirm = messagebox.askyesno("Confirm Danger Zone", f"WARNING: Are you absolutely sure you want to permanently erase Employee ID: {emp_id} from the database server? This action cannot be undone.")
+        if not confirm:
+            return
+        # ------------------------------------
+
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM employees WHERE employee_id = %s", (self.ent_id.get(),))
-        conn.commit(); conn.close()
-        self.reload_grid(); messagebox.showinfo("CRUD", "Record Erased from Server.")
+        try:
+            cursor.execute("DELETE FROM employees WHERE employee_id = %s", (emp_id,))
+            conn.commit()
+            self.reload_grid()
+            messagebox.showinfo("CRUD Success", f"Record for {emp_id} successfully erased from server.")
+        except Exception as e:
+            messagebox.showerror("Database Error", f"Could not complete deletion: {e}")
+        finally:
+            cursor.close()
+            conn.close()
 
     def setup_selectable_analytics_tab(self):
         ctrl_panel = ctk.CTkFrame(self.tab_analytics, fg_color="#1e1e1e", height=60)
