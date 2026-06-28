@@ -1,9 +1,8 @@
 # Python environment exclusions
-__pycache__/
-*.pyc
 .venv/
 venv/
 env/
+ENV/
 
 # Sensitive database settings or local SQLite DBs
 *.db
