@@ -1,9 +1,11 @@
 import customtkinter as ctk
 import pandas as pd
+import matplotlib.pyplot as plt
 from tkinter import ttk, filedialog, messagebox
 from database import clean_and_migrate_pipeline, fetch_all_employees, get_db_connection
 from dashboard import fetch_summary_metrics, generate_selected_chart
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_pdf import PdfPages
 
 ctk.set_appearance_mode("Dark")
 
@@ -172,13 +174,11 @@ class EmployeeManagementApp(ctk.CTk):
         pos = self.ent_pos.get() if self.ent_pos.get() else (existing['position'] if existing else "Staff")
         sal = float(self.ent_sal.get()) if self.ent_sal.get() else (existing['monthly_salary'] if existing else 0.0)
 
-        # --- FIX: ADD UPDATE CONFIRMATION ---
         if existing:
             confirm = messagebox.askyesno("Confirm Update", f"Are you sure you want to modify the record for Employee ID: {emp_id}?")
             if not confirm:
                 cursor.close(); conn.close()
                 return
-        # -------------------------------------
 
         query = """
             INSERT INTO employees (employee_id, employee_name, department, position, monthly_salary)
@@ -196,11 +196,9 @@ class EmployeeManagementApp(ctk.CTk):
             messagebox.showwarning("Warning", "Please select or type an Employee ID to delete.")
             return
 
-        # --- FIX: ADD DELETE CONFIRMATION ---
         confirm = messagebox.askyesno("Confirm Danger Zone", f"WARNING: Are you absolutely sure you want to permanently erase Employee ID: {emp_id} from the database server? This action cannot be undone.")
         if not confirm:
             return
-        # ------------------------------------
 
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -221,7 +219,7 @@ class EmployeeManagementApp(ctk.CTk):
 
         ctk.CTkLabel(ctrl_panel, text="Select Computation Graph:", font=("Arial", 12, "bold")).pack(side="left", padx=15, pady=15)
         
-        chart_options = [
+        self.chart_options = [
             "1. Avg Performance by Dept",
             "2. Monthly Work Hours Trend",
             "3. Attendance Status Distribution",
@@ -230,25 +228,71 @@ class EmployeeManagementApp(ctk.CTk):
             "6. Performance by Position"
         ]
         
-        # ComboBox is now locked (readonly)
-        self.chart_selector = ctk.CTkComboBox(ctrl_panel, values=chart_options, width=300, command=self.update_analytics_canvas, state="readonly")
+        self.chart_selector = ctk.CTkComboBox(ctrl_panel, values=self.chart_options, width=300, command=self.update_analytics_canvas, state="readonly")
         self.chart_selector.pack(side="left", padx=10, pady=15)
-        self.chart_selector.set(chart_options[0])
+        self.chart_selector.set(self.chart_options[0])
+
+        # Export Panel Right Aligned
+        export_panel = ctk.CTkFrame(ctrl_panel, fg_color="transparent")
+        export_panel.pack(side="right", padx=15, pady=10)
+
+        ctk.CTkButton(export_panel, text="💾 Export Active PNG", font=("Arial", 12, "bold"), width=140, fg_color="#ff4a75", hover_color="#e03e63", command=self.export_chart_as_png).pack(side="left", padx=5)
+        ctk.CTkButton(export_panel, text="📄 Export All charts PDF", font=("Arial", 12, "bold"), width=150, fg_color="#2b2b2b", hover_color="#3e3e3e", command=self.export_all_charts_as_pdf).pack(side="left", padx=5)
 
         self.canvas_frame = ctk.CTkFrame(self.tab_analytics, fg_color="#1e1e1e", corner_radius=10)
         self.canvas_frame.pack(fill="both", expand=True, padx=10, pady=10)
-        self.update_analytics_canvas(chart_options[0])
+        
+        self.current_fig = None
+        self.update_analytics_canvas(self.chart_options[0])
 
     def update_analytics_canvas(self, chosen_chart):
         self.clear_container_widgets(self.canvas_frame)
-        fig = generate_selected_chart(chosen_chart)
-        if fig:
-            canvas = FigureCanvasTkAgg(fig, master=self.canvas_frame)
+        self.current_fig = generate_selected_chart(chosen_chart)
+        if self.current_fig:
+            canvas = FigureCanvasTkAgg(self.current_fig, master=self.canvas_frame)
             canvas.get_tk_widget().pack(fill="both", expand=True, padx=10, pady=10)
             canvas.draw()
 
+    def export_chart_as_png(self):
+        if not self.current_fig:
+            messagebox.showwarning("Export Warning", "No active chart visualization available to capture.")
+            return
+        
+        default_name = self.chart_selector.get().lower().replace(" ", "_").replace(".", "") + ".png"
+        file_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG Image", "*.png")], initialfile=default_name)
+        
+        if file_path:
+            try:
+                self.current_fig.savefig(file_path, dpi=150, bbox_inches='tight', facecolor='white', edgecolor='none')
+                messagebox.showinfo("Export Success", f"Active chart saved to disk:\n{file_path}")
+            except Exception as e:
+                messagebox.showerror("Export Error", f"Failed to save image file: {e}")
+
+    # FIXED: Compresses all 6 charts sequentially into one single multi-page PDF document
+    def export_all_charts_as_pdf(self):
+        file_path = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes=[("PDF Document", "*.pdf")], initialfile="comprehensive_analytics_report.pdf")
+        
+        if not file_path:
+            return
+
+        try:
+            # Initialize Matplotlib's multi-page PDF writer engine
+            with PdfPages(file_path) as pdf:
+                print("Compiling all charts into database-driven portfolio...")
+                
+                for chart_name in self.chart_options:
+                    # Generate the individual figure dynamically from clean live values
+                    fig = generate_selected_chart(chart_name)
+                    if fig:
+                        # Append the figure as a new page in the file stream
+                        pdf.savefig(fig, bbox_inches='tight', facecolor='white')
+                        plt.close(fig) # Immediately flush figure context to release memory resources
+                        
+            messagebox.showinfo("Export Success", f"Success! All 6 analytics charts have been compiled and compressed into a single PDF document:\n{file_path}")
+        except Exception as e:
+            messagebox.showerror("Compilation Error", f"Failed to generate multi-page PDF asset: {e}")
+
     def clear_container_widgets(self, container):
-        """Safely removes children from a layout subframe without destroying the master reference."""
         for w in container.winfo_children():
             try:
                 w.pack_forget()
@@ -259,7 +303,6 @@ class EmployeeManagementApp(ctk.CTk):
                 pass
 
     def clear_main_container(self):
-        """Safely cleans out the primary screen context container layout cleanly."""
         self.clear_container_widgets(self.main_container)
 
 if __name__ == "__main__":

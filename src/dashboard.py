@@ -161,4 +161,5 @@ def generate_selected_chart(chart_type):
         ax.spines[['top', 'right']].set_visible(False)
 
     plt.tight_layout()
+    fig.patch.set_facecolor('white') # Explicitly force white background wrapper for file exports
     return fig
