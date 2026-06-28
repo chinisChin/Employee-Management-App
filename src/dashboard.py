@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 from scipy import stats
 from database import get_db_connection
 
-COLORS = ['#ff4a75', '#F4A261', '#57CC99', '#E76F51', '#A8DADC', '#264653', '#E9C46A']
+# Replicating your original code palette configurations perfectly
+COLORS = ['#2C7BB6', '#F4A261', '#57CC99', '#E76F51', '#A8DADC', '#264653', '#E9C46A', '#F4A261']
+ACCENT = '#2C7BB6'
 
 def fetch_summary_metrics():
     conn = get_db_connection()
@@ -44,50 +45,88 @@ def generate_selected_chart(chart_type):
     if df.empty: return None
 
     df['date'] = pd.to_datetime(df['date'])
-    df['month_str'] = df['date'].dt.strftime('%Y-%m')
+    df['month'] = df['date'].dt.to_period('M')
+    df['month_str'] = df['month'].astype(str)
 
-    plt.style.use('dark_background')
-    fig, ax = plt.subplots(figsize=(6, 3.8), dpi=100)
-    fig.patch.set_facecolor('#1e1e1e')
-    ax.set_facecolor('#1e1e1e')
+    # Creating separate styling parameters matching your visualization script exactly
+    fig, ax = plt.subplots(figsize=(7, 4.2), dpi=100)
+    ax.set_facecolor('#F9F9F9')
+    fig.patch.set_facecolor('white')
 
     if chart_type == "1. Avg Performance by Dept":
         dept_perf = df[df['department'] != 'Unknown'].groupby('department')['performance_rating'].mean().sort_values(ascending=False)
-        bars = ax.bar(dept_perf.index, dept_perf.values, color=COLORS[:len(dept_perf)])
-        ax.set_title("Average Performance by Department", color="white", fontweight="bold")
-        ax.set_xticklabels(dept_perf.index, rotation=15)
+        bars = ax.bar(dept_perf.index, dept_perf.values, color=COLORS[:len(dept_perf)], edgecolor='white', linewidth=0.8)
+        for bar in bars:
+            h = bar.get_height()
+            ax.text(bar.get_x() + bar.get_width() / 2, h + 0.03, f'{h:.2f}', ha='center', va='bottom', fontsize=9, fontweight='bold', color='#333333')
+        ax.set_title('Average Performance Rating by Department', fontsize=12, fontweight='bold', pad=15, color='black')
+        ax.axhline(dept_perf.mean(), color='#E76F51', linestyle='--', linewidth=1.5, label=f'Overall Avg: {dept_perf.mean():.2f}')
+        ax.set_ylim(0, 5.5)
+        ax.set_ylabel('Average Performance Rating', color='black')
+        ax.tick_params(axis='x', rotation=15, colors='black')
+        ax.tick_params(axis='y', colors='black')
+        ax.legend(fontsize=8)
+        ax.spines[['top', 'right']].set_visible(False)
 
     elif chart_type == "2. Monthly Work Hours Trend":
         monthly_hours = df.groupby('month_str')['hours_worked'].mean().reset_index()
-        ax.plot(monthly_hours['month_str'], monthly_hours['hours_worked'], marker='o', color='#ff4a75', linewidth=2)
-        ax.fill_between(monthly_hours['month_str'], monthly_hours['hours_worked'], alpha=0.15, color='#ff4a75')
-        ax.set_title("Average Work Hours per Month", color="white", fontweight="bold")
-        ax.set_xticklabels(monthly_hours['month_str'], rotation=30)
+        ax.plot(monthly_hours['month_str'], monthly_hours['hours_worked'], marker='o', color=ACCENT, linewidth=2.2, markersize=6, markerfacecolor='white', markeredgecolor=ACCENT, markeredgewidth=2)
+        ax.fill_between(monthly_hours['month_str'], monthly_hours['hours_worked'], alpha=0.12, color=ACCENT)
+        ax.set_title('Average Hours Worked per Month', fontsize=12, fontweight='bold', pad=15, color='black')
+        ax.axhline(monthly_hours['hours_worked'].mean(), color='#E76F51', linestyle='--', linewidth=1.5, label=f'Overall Avg: {monthly_hours["hours_worked"].mean():.2f} hrs')
+        ax.tick_params(axis='x', rotation=45, colors='black')
+        ax.tick_params(axis='y', colors='black')
+        ax.set_ylabel('Average Hours Worked', color='black')
+        ax.legend(fontsize=8)
+        ax.spines[['top', 'right']].set_visible(False)
 
     elif chart_type == "3. Attendance Status Distribution":
-        counts = df['attendance_status'].value_counts()
-        ax.pie(counts.values, labels=counts.index, autopct='%1.1f%%', colors=COLORS[:len(counts)], startangle=140)
-        ax.set_title("Distribution of Attendance Status", color="white", fontweight="bold")
+        fig.patch.set_facecolor('white')
+        attendance_counts = df['attendance_status'].value_counts()
+        wedges, texts, autotexts = ax.pie(attendance_counts.values, labels=attendance_counts.index, autopct='%1.1f%%', colors=COLORS[:len(attendance_counts)], startangle=140, pctdistance=0.82, wedgeprops=dict(edgecolor='white', linewidth=2))
+        for text in texts: text.set_color('black')
+        for autotext in autotexts: autotext.set_fontweight('bold'); autotext.set_color('white')
+        ax.set_title('Distribution of Attendance Status', fontsize=12, fontweight='bold', pad=15, color='black')
 
     elif chart_type == "4. Hours Worked vs Performance scatter":
         positions = df['position'].unique()
-        for i, pos in enumerate(positions):
-            sub = df[df['position'] == pos]
-            ax.scatter(sub['hours_worked'], sub['performance_rating'], label=pos, color=COLORS[i % len(COLORS)], alpha=0.6, edgecolors='white', s=30)
-        slope, intercept, r_val, _, _ = stats.linregress(df['hours_worked'], df['performance_rating'])
-        x_ln = np.linspace(df['hours_worked'].min(), df['hours_worked'].max(), 100)
-        ax.plot(x_ln, slope * x_ln + intercept, color='white', linestyle='--', label=f'Trend (r = {r_val:.2f})')
-        ax.legend(fontsize=8, loc="upper left")
-        ax.set_title("Hours Worked vs. Performance", color="white", fontweight="bold")
+        pos_colors = {pos: COLORS[i % len(COLORS)] for i, pos in enumerate(positions)}
+        for pos in positions:
+            subset = df[df['position'] == pos]
+            ax.scatter(subset['hours_worked'], subset['performance_rating'], label=pos, color=pos_colors[pos], alpha=0.6, s=40, edgecolors='white', linewidth=0.5)
+        slope, intercept, r, p, _ = stats.linregress(df['hours_worked'], df['performance_rating'])
+        x_line = np.linspace(df['hours_worked'].min(), df['hours_worked'].max(), 100)
+        ax.plot(x_line, slope * x_line + intercept, color='#333333', linewidth=1.8, linestyle='--', label=f'Trend (r = {r:.3f})')
+        ax.set_title('Hours Worked vs. Performance Rating by Position', fontsize=12, fontweight='bold', pad=15, color='black')
+        ax.legend(fontsize=8, loc='upper left')
+        ax.tick_params(colors='black')
+        ax.spines[['top', 'right']].set_visible(False)
 
     elif chart_type == "5. Distribution Histogram of Hours":
-        n, bins, patches = ax.hist(df['hours_worked'], bins=15, color='#ff4a75', edgecolor='white', alpha=0.8)
-        ax.set_title("Distribution of Hours Worked", color="white", fontweight="bold")
+        n, bins, patches = ax.hist(df['hours_worked'], bins=20, color=ACCENT, edgecolor='white', linewidth=0.8, alpha=0.85)
+        norm_vals = n / n.max()
+        for patch, val in zip(patches, norm_vals):
+            patch.set_facecolor(plt.cm.Blues(0.3 + val * 0.6))
+        ax.axvline(df['hours_worked'].mean(), color='#E76F51', linestyle='--', linewidth=1.8, label=f'Mean: {df["hours_worked"].mean():.2f} hrs')
+        ax.axvline(df['hours_worked'].median(), color='#57CC99', linestyle='--', linewidth=1.8, label=f'Median: {df["hours_worked"].median():.2f} hrs')
+        ax.set_title('Distribution of Hours Worked', fontsize=12, fontweight='bold', pad=15, color='black')
+        ax.legend(fontsize=8)
+        ax.tick_params(colors='black')
+        ax.spines[['top', 'right']].set_visible(False)
 
     elif chart_type == "6. Performance by Position":
         pos_perf = df.groupby('position')['performance_rating'].mean().sort_values(ascending=False)
-        ax.bar(pos_perf.index, pos_perf.values, color=COLORS[:len(pos_perf)])
-        ax.set_title("Average Performance by Position", color="white", fontweight="bold")
+        pos_colors = {pos: COLORS[i % len(COLORS)] for i, pos in enumerate(pos_perf.index)}
+        bars6 = ax.bar(pos_perf.index, pos_perf.values, color=[pos_colors[p] for p in pos_perf.index], edgecolor='white', linewidth=0.8)
+        for bar in bars6:
+            h = bar.get_height()
+            ax.text(bar.get_x() + bar.get_width() / 2, h + 0.03, f'{h:.2f}', ha='center', va='bottom', fontsize=9, fontweight='bold', color='black')
+        ax.set_title('Average Performance Rating by Position', fontsize=12, fontweight='bold', pad=15, color='black')
+        ax.axhline(pos_perf.mean(), color='#E76F51', linestyle='--', linewidth=1.5, label=f'Overall Avg: {pos_perf.mean():.2f}')
+        ax.set_ylim(0, 5.5)
+        ax.legend(fontsize=8)
+        ax.tick_params(colors='black')
+        ax.spines[['top', 'right']].set_visible(False)
 
     plt.tight_layout()
     return fig
