@@ -1,0 +1,129 @@
+import pandas as pd
+import mysql.connector
+from mysql.connector import Error
+import numpy as np
+
+def get_db_connection():
+    try:
+        return mysql.connector.connect(
+            host="localhost",
+            user="root",               
+            password="Sky-digong12",   # Your database server password
+            database="employee"        
+        )
+    except Error as e:
+        print(f"Error: {e}")
+        return None
+
+def clean_and_migrate_pipeline(file_path="employee_attendance_productivity.csv"):
+    """
+    Reads the raw uncleaned CSV file, cleans the anomalies inline,
+    normalizes the structures, and loads them straight into the database.
+    """
+    conn = get_db_connection()
+    if not conn:
+        print("Database connection failed.")
+        return
+    cursor = conn.cursor()
+    
+    print(f"Loading raw file: {file_path}")
+    try:
+        df_raw = pd.read_csv(file_path)
+    except FileNotFoundError:
+        print("Raw data file not found! Please check your file paths.")
+        return
+
+    # --- 1. CLEANING STEP ---
+    print("Executing data cleaning routines...")
+    
+    # Trim accidental white spaces from text variables
+    string_cols = ['employee_id', 'employee_name', 'department', 'position', 'attendance_status']
+    for col in string_cols:
+        if col in df_raw.columns:
+            # Strip fields but make sure actual nulls don't turn into literal "nan" strings
+            df_raw[col] = df_raw[col].fillna("Unknown").astype(str).str.strip()
+            
+    # Fix typos and standardize names
+    df_raw['department'] = df_raw['department'].replace({'Marketting': 'Marketing', 'nan': 'Unknown', 'None': 'Unknown'})
+    df_raw['attendance_status'] = df_raw['attendance_status'].replace({'nan': 'Present', 'None': 'Present'}) # Default missing logs to Present
+    
+    # Standardize dates to SQL friendly YYYY-MM-DD format
+    df_raw['date'] = pd.to_datetime(df_raw['date'], errors='coerce').dt.strftime('%Y-%m-%d')
+    df_raw['date'] = df_raw['date'].fillna('2026-01-01') # Emergency fallback if a date field is corrupted
+
+    # Replace numeric NaN values so MySQL understands them!
+    df_raw['hours_worked'] = pd.to_numeric(df_raw['hours_worked'], errors='coerce').fillna(0.0)
+    df_raw['tasks_completed'] = pd.to_numeric(df_raw['tasks_completed'], errors='coerce').fillna(0.0)
+    df_raw['performance_rating'] = pd.to_numeric(df_raw['performance_rating'], errors='coerce').fillna(0.0)
+    df_raw['monthly_salary'] = pd.to_numeric(df_raw['monthly_salary'], errors='coerce').fillna(0.0)
+
+    # Ensure performance ratings are within a safe decimal boundary (e.g., 0.0 to 5.0)
+    df_raw['performance_rating'] = df_raw['performance_rating'].clip(lower=0.0, upper=5.0)
+
+    # --- 2. NORMALIZATION STEP ---
+    print("Separating data collections...")
+    
+    # Extract unique employee table records
+    df_sorted = df_raw.sort_values(by=['employee_id', 'date'])
+    df_employees = df_sorted.groupby('employee_id').last().reset_index()
+    df_employees = df_employees[['employee_id', 'employee_name', 'department', 'position', 'monthly_salary']]
+    
+    # Extract daily transaction log table records (Matching your 6 columns exactly)
+    df_logs = df_raw[['employee_id', 'date', 'attendance_status', 'hours_worked', 'tasks_completed', 'performance_rating']]
+
+    # --- 3. DATABASE INGESTION STEP ---
+    print("Uploading clean master data to SQL server...")
+    
+    # Ultimate safeguard function to catch float nan, numpy nan, and explicit "nan" string anomalies
+    def clean_tuple(record):
+        cleaned = []
+        for val in record:
+            if pd.isna(val) or val == 'nan' or val == 'None' or val == 'NaN':
+                cleaned.append(None) # Maps directly to a clean SQL NULL
+            else:
+                cleaned.append(val)
+        return tuple(cleaned)
+    
+    # Load unique employees
+    insert_emp_query = """
+        INSERT IGNORE INTO employees (employee_id, employee_name, department, position, monthly_salary)
+        VALUES (%s, %s, %s, %s, %s)
+    """
+    emp_records = [clean_tuple(x) for x in df_employees.to_numpy()]
+    cursor.executemany(insert_emp_query, emp_records)
+    
+    # Load transactional logs (Matching your 6 columns exactly)
+    insert_log_query = """
+        INSERT INTO attendance_logs (employee_id, date, attendance_status, hours_worked, tasks_completed, performance_rating)
+        VALUES (%s, %s, %s, %s, %s, %s)
+    """
+    log_records = [clean_tuple(x) for x in df_logs.to_numpy()]
+    cursor.executemany(insert_log_query, log_records)
+    
+    conn.commit()
+    print(f"Success! Migrated {len(emp_records)} clean employee records and {len(log_records)} logs.")
+    
+    cursor.close()
+    conn.close()
+
+if __name__ == "__main__":
+    clean_and_migrate_pipeline("data/employee_attendance_productivity.csv")
+
+def fetch_all_employees():
+    """Fetches all employee records from the SQL server for the GUI grid."""
+    conn = get_db_connection()
+    if not conn:
+        return []
+    
+    cursor = conn.cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT employee_id, employee_name, department, position, monthly_salary FROM employees ORDER BY employee_id;")
+        records = cursor.fetchall()
+    except Exception as e:
+        print(f"Error fetching directory: {e}")
+        records = []
+    finally:
+        cursor.close()
+        conn.close()
+        
+    return records
