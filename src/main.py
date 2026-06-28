@@ -20,6 +20,9 @@ class EmployeeManagementApp(ctk.CTk):
         self.show_welcome_screen()
 
     def show_welcome_screen(self):
+        self.after(0, self._build_welcome_screen)
+
+    def _build_welcome_screen(self):
         self.clear_main_container()
         frame = ctk.CTkFrame(self.main_container, fg_color="#1a1a1a", corner_radius=15)
         frame.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.6, relheight=0.4)
@@ -33,6 +36,9 @@ class EmployeeManagementApp(ctk.CTk):
         open_btn.pack(pady=40)
 
     def show_file_selection_screen(self):
+        self.after(0, self._build_file_selection_screen)
+
+    def _build_file_selection_screen(self):
         self.clear_main_container()
         top_bar = ctk.CTkFrame(self.main_container, fg_color="#1a1a1a", height=70)
         top_bar.pack(side="top", fill="x")
@@ -40,7 +46,6 @@ class EmployeeManagementApp(ctk.CTk):
         ctk.CTkButton(top_bar, text="← Back", width=70, fg_color="#2b2b2b", command=self.show_welcome_screen).pack(side="left", padx=15, pady=15)
         ctk.CTkLabel(top_bar, text="Data Ingestion Preview", font=("Arial", 16, "bold")).pack(side="left", padx=10)
         
-        # Ingestion Button Triggers
         self.action_btn_frame = ctk.CTkFrame(top_bar, fg_color="transparent")
         self.action_btn_frame.pack(side="right", padx=15, pady=15)
         
@@ -56,16 +61,14 @@ class EmployeeManagementApp(ctk.CTk):
         file_path = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv")])
         if file_path:
             self.raw_file_path = file_path
-            for w in self.preview_container.winfo_children(): w.destroy()
-            for w in self.action_btn_frame.winfo_children(): w.destroy()
+            self.clear_container_widgets(self.preview_container)
+            self.clear_container_widgets(self.action_btn_frame)
             
-            # Put the buttons back but append the specific clean operation selector option
             ctk.CTkButton(self.action_btn_frame, text="Re-select File", fg_color="#2b2b2b", command=self.browse_uncleaned_file).pack(side="left", padx=5)
             ctk.CTkButton(self.action_btn_frame, text="Clean & Ingest Dataset 🚀", fg_color="#57CC99", hover_color="#3ca877", command=self.prompt_cleaning_routine).pack(side="left", padx=5)
 
             df = pd.read_csv(file_path, nrows=10)
             
-            # Style Preview treeview to be charcoal/pink matching theme parameters
             style = ttk.Style()
             style.configure("Preview.Treeview", background="#1e1e1e", foreground="white", fieldbackground="#1e1e1e", rowheight=24)
             style.configure("Preview.Treeview.Heading", background="#1a1a1a", foreground="#ff4a75", font=("Arial", 9, "bold"))
@@ -81,7 +84,7 @@ class EmployeeManagementApp(ctk.CTk):
     def prompt_cleaning_routine(self):
         if messagebox.askyesno("Clean Routine", "Do you want to clean this file and migrate parameters to local SQL?"):
             clean_and_migrate_pipeline(self.raw_file_path)
-            self.show_main_dashboard_view()
+            self.after(0, self.show_main_dashboard_view)
 
     def show_main_dashboard_view(self):
         self.clear_main_container()
@@ -124,7 +127,6 @@ class EmployeeManagementApp(ctk.CTk):
         right_grid = ctk.CTkFrame(self.tab_directory, fg_color="#1e1e1e")
         right_grid.pack(side="right", fill="both", expand=True, padx=10, pady=10)
 
-        # Resetting main view grid colors to elegant dark charcoal & pop pink highlight styles
         style = ttk.Style()
         style.configure("Grid.Treeview", background="#1e1e1e", foreground="white", rowheight=28, fieldbackground="#1e1e1e", borderwidth=0)
         style.map('Grid.Treeview', background=[('selected', '#ff4a75')], foreground=[('selected', 'white')])
@@ -155,7 +157,6 @@ class EmployeeManagementApp(ctk.CTk):
             self.ent_sal.delete(0, 'end'); self.ent_sal.insert(0, clean_sal)
 
     def crud_save(self):
-        # Fix: Safely fetching previous values for fields left empty during a manual form update
         emp_id = self.ent_id.get()
         if not emp_id:
             messagebox.showwarning("Warning", "Employee ID is required to map parameters.")
@@ -166,7 +167,6 @@ class EmployeeManagementApp(ctk.CTk):
         cursor.execute("SELECT * FROM employees WHERE employee_id = %s", (emp_id,))
         existing = cursor.fetchone()
 
-        # Fallback to existing attributes if a text box is left blank
         name = self.ent_name.get() if self.ent_name.get() else (existing['employee_name'] if existing else "")
         dept = self.ent_dept.get() if self.ent_dept.get() else (existing['department'] if existing else "Unknown")
         pos = self.ent_pos.get() if self.ent_pos.get() else (existing['position'] if existing else "Staff")
@@ -203,7 +203,8 @@ class EmployeeManagementApp(ctk.CTk):
             "6. Performance by Position"
         ]
         
-        self.chart_selector = ctk.CTkComboBox(ctrl_panel, values=chart_options, width=300, command=self.update_analytics_canvas)
+        # ComboBox is now locked (readonly)
+        self.chart_selector = ctk.CTkComboBox(ctrl_panel, values=chart_options, width=300, command=self.update_analytics_canvas, state="readonly")
         self.chart_selector.pack(side="left", padx=10, pady=15)
         self.chart_selector.set(chart_options[0])
 
@@ -212,15 +213,27 @@ class EmployeeManagementApp(ctk.CTk):
         self.update_analytics_canvas(chart_options[0])
 
     def update_analytics_canvas(self, chosen_chart):
-        for w in self.canvas_frame.winfo_children(): w.destroy()
+        self.clear_container_widgets(self.canvas_frame)
         fig = generate_selected_chart(chosen_chart)
         if fig:
             canvas = FigureCanvasTkAgg(fig, master=self.canvas_frame)
             canvas.get_tk_widget().pack(fill="both", expand=True, padx=10, pady=10)
             canvas.draw()
 
+    def clear_container_widgets(self, container):
+        """Safely removes children from a layout subframe without destroying the master reference."""
+        for w in container.winfo_children():
+            try:
+                w.pack_forget()
+                w.grid_forget()
+                w.place_forget()
+                w.destroy()
+            except Exception:
+                pass
+
     def clear_main_container(self):
-        for w in self.main_container.winfo_children(): w.destroy()
+        """Safely cleans out the primary screen context container layout cleanly."""
+        self.clear_container_widgets(self.main_container)
 
 if __name__ == "__main__":
     app = EmployeeManagementApp()
