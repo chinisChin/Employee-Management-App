@@ -1,9 +1,11 @@
 import customtkinter as ctk
 import pandas as pd
+import matplotlib.pyplot as plt
 from tkinter import ttk, filedialog, messagebox
 from database import clean_and_migrate_pipeline, fetch_all_employees, get_db_connection
 from dashboard import fetch_summary_metrics, generate_selected_chart
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_pdf import PdfPages
 
 ctk.set_appearance_mode("Dark")
 
@@ -20,6 +22,9 @@ class EmployeeManagementApp(ctk.CTk):
         self.show_welcome_screen()
 
     def show_welcome_screen(self):
+        self.after(0, self._build_welcome_screen)
+
+    def _build_welcome_screen(self):
         self.clear_main_container()
         frame = ctk.CTkFrame(self.main_container, fg_color="#1a1a1a", corner_radius=15)
         frame.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.6, relheight=0.4)
@@ -33,6 +38,9 @@ class EmployeeManagementApp(ctk.CTk):
         open_btn.pack(pady=40)
 
     def show_file_selection_screen(self):
+        self.after(0, self._build_file_selection_screen)
+
+    def _build_file_selection_screen(self):
         self.clear_main_container()
         top_bar = ctk.CTkFrame(self.main_container, fg_color="#1a1a1a", height=70)
         top_bar.pack(side="top", fill="x")
@@ -40,7 +48,6 @@ class EmployeeManagementApp(ctk.CTk):
         ctk.CTkButton(top_bar, text="← Back", width=70, fg_color="#2b2b2b", command=self.show_welcome_screen).pack(side="left", padx=15, pady=15)
         ctk.CTkLabel(top_bar, text="Data Ingestion Preview", font=("Arial", 16, "bold")).pack(side="left", padx=10)
         
-        # Ingestion Button Triggers
         self.action_btn_frame = ctk.CTkFrame(top_bar, fg_color="transparent")
         self.action_btn_frame.pack(side="right", padx=15, pady=15)
         
@@ -56,16 +63,14 @@ class EmployeeManagementApp(ctk.CTk):
         file_path = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv")])
         if file_path:
             self.raw_file_path = file_path
-            for w in self.preview_container.winfo_children(): w.destroy()
-            for w in self.action_btn_frame.winfo_children(): w.destroy()
+            self.clear_container_widgets(self.preview_container)
+            self.clear_container_widgets(self.action_btn_frame)
             
-            # Put the buttons back but append the specific clean operation selector option
             ctk.CTkButton(self.action_btn_frame, text="Re-select File", fg_color="#2b2b2b", command=self.browse_uncleaned_file).pack(side="left", padx=5)
             ctk.CTkButton(self.action_btn_frame, text="Clean & Ingest Dataset 🚀", fg_color="#57CC99", hover_color="#3ca877", command=self.prompt_cleaning_routine).pack(side="left", padx=5)
 
             df = pd.read_csv(file_path, nrows=10)
             
-            # Style Preview treeview to be charcoal/pink matching theme parameters
             style = ttk.Style()
             style.configure("Preview.Treeview", background="#1e1e1e", foreground="white", fieldbackground="#1e1e1e", rowheight=24)
             style.configure("Preview.Treeview.Heading", background="#1a1a1a", foreground="#ff4a75", font=("Arial", 9, "bold"))
@@ -81,7 +86,7 @@ class EmployeeManagementApp(ctk.CTk):
     def prompt_cleaning_routine(self):
         if messagebox.askyesno("Clean Routine", "Do you want to clean this file and migrate parameters to local SQL?"):
             clean_and_migrate_pipeline(self.raw_file_path)
-            self.show_main_dashboard_view()
+            self.after(0, self.show_main_dashboard_view)
 
     def show_main_dashboard_view(self):
         self.clear_main_container()
@@ -124,7 +129,6 @@ class EmployeeManagementApp(ctk.CTk):
         right_grid = ctk.CTkFrame(self.tab_directory, fg_color="#1e1e1e")
         right_grid.pack(side="right", fill="both", expand=True, padx=10, pady=10)
 
-        # Resetting main view grid colors to elegant dark charcoal & pop pink highlight styles
         style = ttk.Style()
         style.configure("Grid.Treeview", background="#1e1e1e", foreground="white", rowheight=28, fieldbackground="#1e1e1e", borderwidth=0)
         style.map('Grid.Treeview', background=[('selected', '#ff4a75')], foreground=[('selected', 'white')])
@@ -155,7 +159,6 @@ class EmployeeManagementApp(ctk.CTk):
             self.ent_sal.delete(0, 'end'); self.ent_sal.insert(0, clean_sal)
 
     def crud_save(self):
-        # Fix: Safely fetching previous values for fields left empty during a manual form update
         emp_id = self.ent_id.get()
         if not emp_id:
             messagebox.showwarning("Warning", "Employee ID is required to map parameters.")
@@ -166,11 +169,16 @@ class EmployeeManagementApp(ctk.CTk):
         cursor.execute("SELECT * FROM employees WHERE employee_id = %s", (emp_id,))
         existing = cursor.fetchone()
 
-        # Fallback to existing attributes if a text box is left blank
         name = self.ent_name.get() if self.ent_name.get() else (existing['employee_name'] if existing else "")
         dept = self.ent_dept.get() if self.ent_dept.get() else (existing['department'] if existing else "Unknown")
         pos = self.ent_pos.get() if self.ent_pos.get() else (existing['position'] if existing else "Staff")
         sal = float(self.ent_sal.get()) if self.ent_sal.get() else (existing['monthly_salary'] if existing else 0.0)
+
+        if existing:
+            confirm = messagebox.askyesno("Confirm Update", f"Are you sure you want to modify the record for Employee ID: {emp_id}?")
+            if not confirm:
+                cursor.close(); conn.close()
+                return
 
         query = """
             INSERT INTO employees (employee_id, employee_name, department, position, monthly_salary)
@@ -178,15 +186,32 @@ class EmployeeManagementApp(ctk.CTk):
             ON DUPLICATE KEY UPDATE employee_name=%s, department=%s, position=%s, monthly_salary=%s
         """
         cursor.execute(query, (emp_id, name, dept, pos, sal, name, dept, pos, sal))
-        conn.commit(); conn.close()
-        self.reload_grid(); messagebox.showinfo("CRUD", "Database Record Saved Successfully.")
+        conn.commit(); cursor.close(); conn.close()
+        self.reload_grid()
+        messagebox.showinfo("CRUD Success", "Database Record Saved Successfully.")
 
     def crud_delete(self):
+        emp_id = self.ent_id.get()
+        if not emp_id:
+            messagebox.showwarning("Warning", "Please select or type an Employee ID to delete.")
+            return
+
+        confirm = messagebox.askyesno("Confirm Danger Zone", f"WARNING: Are you absolutely sure you want to permanently erase Employee ID: {emp_id} from the database server? This action cannot be undone.")
+        if not confirm:
+            return
+
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM employees WHERE employee_id = %s", (self.ent_id.get(),))
-        conn.commit(); conn.close()
-        self.reload_grid(); messagebox.showinfo("CRUD", "Record Erased from Server.")
+        try:
+            cursor.execute("DELETE FROM employees WHERE employee_id = %s", (emp_id,))
+            conn.commit()
+            self.reload_grid()
+            messagebox.showinfo("CRUD Success", f"Record for {emp_id} successfully erased from server.")
+        except Exception as e:
+            messagebox.showerror("Database Error", f"Could not complete deletion: {e}")
+        finally:
+            cursor.close()
+            conn.close()
 
     def setup_selectable_analytics_tab(self):
         ctrl_panel = ctk.CTkFrame(self.tab_analytics, fg_color="#1e1e1e", height=60)
@@ -194,7 +219,7 @@ class EmployeeManagementApp(ctk.CTk):
 
         ctk.CTkLabel(ctrl_panel, text="Select Computation Graph:", font=("Arial", 12, "bold")).pack(side="left", padx=15, pady=15)
         
-        chart_options = [
+        self.chart_options = [
             "1. Avg Performance by Dept",
             "2. Monthly Work Hours Trend",
             "3. Attendance Status Distribution",
@@ -203,24 +228,82 @@ class EmployeeManagementApp(ctk.CTk):
             "6. Performance by Position"
         ]
         
-        self.chart_selector = ctk.CTkComboBox(ctrl_panel, values=chart_options, width=300, command=self.update_analytics_canvas)
+        self.chart_selector = ctk.CTkComboBox(ctrl_panel, values=self.chart_options, width=300, command=self.update_analytics_canvas, state="readonly")
         self.chart_selector.pack(side="left", padx=10, pady=15)
-        self.chart_selector.set(chart_options[0])
+        self.chart_selector.set(self.chart_options[0])
+
+        # Export Panel Right Aligned
+        export_panel = ctk.CTkFrame(ctrl_panel, fg_color="transparent")
+        export_panel.pack(side="right", padx=15, pady=10)
+
+        ctk.CTkButton(export_panel, text="💾 Export Active PNG", font=("Arial", 12, "bold"), width=140, fg_color="#ff4a75", hover_color="#e03e63", command=self.export_chart_as_png).pack(side="left", padx=5)
+        ctk.CTkButton(export_panel, text="📄 Export All charts PDF", font=("Arial", 12, "bold"), width=150, fg_color="#2b2b2b", hover_color="#3e3e3e", command=self.export_all_charts_as_pdf).pack(side="left", padx=5)
 
         self.canvas_frame = ctk.CTkFrame(self.tab_analytics, fg_color="#1e1e1e", corner_radius=10)
         self.canvas_frame.pack(fill="both", expand=True, padx=10, pady=10)
-        self.update_analytics_canvas(chart_options[0])
+        
+        self.current_fig = None
+        self.update_analytics_canvas(self.chart_options[0])
 
     def update_analytics_canvas(self, chosen_chart):
-        for w in self.canvas_frame.winfo_children(): w.destroy()
-        fig = generate_selected_chart(chosen_chart)
-        if fig:
-            canvas = FigureCanvasTkAgg(fig, master=self.canvas_frame)
+        self.clear_container_widgets(self.canvas_frame)
+        self.current_fig = generate_selected_chart(chosen_chart)
+        if self.current_fig:
+            canvas = FigureCanvasTkAgg(self.current_fig, master=self.canvas_frame)
             canvas.get_tk_widget().pack(fill="both", expand=True, padx=10, pady=10)
             canvas.draw()
 
+    def export_chart_as_png(self):
+        if not self.current_fig:
+            messagebox.showwarning("Export Warning", "No active chart visualization available to capture.")
+            return
+        
+        default_name = self.chart_selector.get().lower().replace(" ", "_").replace(".", "") + ".png"
+        file_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG Image", "*.png")], initialfile=default_name)
+        
+        if file_path:
+            try:
+                self.current_fig.savefig(file_path, dpi=150, bbox_inches='tight', facecolor='white', edgecolor='none')
+                messagebox.showinfo("Export Success", f"Active chart saved to disk:\n{file_path}")
+            except Exception as e:
+                messagebox.showerror("Export Error", f"Failed to save image file: {e}")
+
+    # FIXED: Compresses all 6 charts sequentially into one single multi-page PDF document
+    def export_all_charts_as_pdf(self):
+        file_path = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes=[("PDF Document", "*.pdf")], initialfile="comprehensive_analytics_report.pdf")
+        
+        if not file_path:
+            return
+
+        try:
+            # Initialize Matplotlib's multi-page PDF writer engine
+            with PdfPages(file_path) as pdf:
+                print("Compiling all charts into database-driven portfolio...")
+                
+                for chart_name in self.chart_options:
+                    # Generate the individual figure dynamically from clean live values
+                    fig = generate_selected_chart(chart_name)
+                    if fig:
+                        # Append the figure as a new page in the file stream
+                        pdf.savefig(fig, bbox_inches='tight', facecolor='white')
+                        plt.close(fig) # Immediately flush figure context to release memory resources
+                        
+            messagebox.showinfo("Export Success", f"Success! All 6 analytics charts have been compiled and compressed into a single PDF document:\n{file_path}")
+        except Exception as e:
+            messagebox.showerror("Compilation Error", f"Failed to generate multi-page PDF asset: {e}")
+
+    def clear_container_widgets(self, container):
+        for w in container.winfo_children():
+            try:
+                w.pack_forget()
+                w.grid_forget()
+                w.place_forget()
+                w.destroy()
+            except Exception:
+                pass
+
     def clear_main_container(self):
-        for w in self.main_container.winfo_children(): w.destroy()
+        self.clear_container_widgets(self.main_container)
 
 if __name__ == "__main__":
     app = EmployeeManagementApp()

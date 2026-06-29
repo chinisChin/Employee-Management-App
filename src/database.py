@@ -7,7 +7,7 @@ def get_db_connection():
     try:
         return mysql.connector.connect(
             host="localhost",
-            user="root",               
+            user="root",              
             password="Sky-digong12",   # Your database server password
             database="employee"        
         )
@@ -40,25 +40,39 @@ def clean_and_migrate_pipeline(file_path="employee_attendance_productivity.csv")
     string_cols = ['employee_id', 'employee_name', 'department', 'position', 'attendance_status']
     for col in string_cols:
         if col in df_raw.columns:
-            # Strip fields but make sure actual nulls don't turn into literal "nan" strings
             df_raw[col] = df_raw[col].fillna("Unknown").astype(str).str.strip()
             
-    # Fix typos and standardize names
-    df_raw['department'] = df_raw['department'].replace({'Marketting': 'Marketing', 'nan': 'Unknown', 'None': 'Unknown'})
-    df_raw['attendance_status'] = df_raw['attendance_status'].replace({'nan': 'Present', 'None': 'Present'}) # Default missing logs to Present
-    
-    # Standardize dates to SQL friendly YYYY-MM-DD format
-    df_raw['date'] = pd.to_datetime(df_raw['date'], errors='coerce').dt.strftime('%Y-%m-%d')
-    df_raw['date'] = df_raw['date'].fillna('2026-01-01') # Emergency fallback if a date field is corrupted
+    # Fix typos and standardize names to match your cleaning rules
+    df_raw['department'] = df_raw['department'].astype(str).str.strip().str.title()
+    dept_mapping = {'Marketting': 'Marketing', 'Operatons': 'Operations', 'It Support': 'IT Support', 'Hr': 'HR', 'Nan': 'Unknown', 'None': 'Unknown'}
+    df_raw['department'] = df_raw['department'].replace(dept_mapping)
 
-    # Replace numeric NaN values so MySQL understands them!
-    df_raw['hours_worked'] = pd.to_numeric(df_raw['hours_worked'], errors='coerce').fillna(0.0)
-    df_raw['tasks_completed'] = pd.to_numeric(df_raw['tasks_completed'], errors='coerce').fillna(0.0)
-    df_raw['performance_rating'] = pd.to_numeric(df_raw['performance_rating'], errors='coerce').fillna(0.0)
-    df_raw['monthly_salary'] = pd.to_numeric(df_raw['monthly_salary'], errors='coerce').fillna(0.0)
+    df_raw['attendance_status'] = df_raw['attendance_status'].astype(str).str.strip().str.title()
+    df_raw['attendance_status'] = df_raw['attendance_status'].replace({'Wfh': 'Work From Home', 'Nan': 'Present', 'None': 'Present'})
 
-    # Ensure performance ratings are within a safe decimal boundary (e.g., 0.0 to 5.0)
-    df_raw['performance_rating'] = df_raw['performance_rating'].clip(lower=0.0, upper=5.0)
+    # Handle Logical Outliers matching your rules exactly (out-of-bounds to NaN)
+    df_raw['hours_worked'] = pd.to_numeric(df_raw['hours_worked'], errors='coerce')
+    df_raw['performance_rating'] = pd.to_numeric(df_raw['performance_rating'], errors='coerce')
+    df_raw['tasks_completed'] = pd.to_numeric(df_raw['tasks_completed'], errors='coerce')
+    df_raw['monthly_salary'] = pd.to_numeric(df_raw['monthly_salary'], errors='coerce')
+
+    df_raw.loc[(df_raw['hours_worked'] < 0) | (df_raw['hours_worked'] > 24), 'hours_worked'] = np.nan
+    df_raw.loc[(df_raw['performance_rating'] < 0) | (df_raw['performance_rating'] > 5), 'performance_rating'] = np.nan
+
+    # Impute Missing Values with Medians instead of 0.0 to protect chart shapes
+    for col in ['hours_worked', 'tasks_completed', 'performance_rating', 'monthly_salary']:
+        median_val = df_raw[col].median()
+        if pd.isna(median_val): median_val = 0.0
+        df_raw[col] = df_raw[col].fillna(median_val)
+
+    # Resolve timeline dates safely
+    df_raw['date'] = pd.to_datetime(df_raw['date'], errors='coerce')
+    df_raw = df_raw.sort_values(by=['employee_id'])
+    synthetic_dates = pd.Timestamp('2025-01-01') + pd.to_timedelta(df_raw.groupby('employee_id').cumcount() * 3, unit='D')
+    df_raw['date'] = df_raw['date'].fillna(synthetic_dates)
+    df_raw['date'] = df_raw['date'].dt.strftime('%Y-%m-%d')
+
+    df_raw = df_raw[df_raw['employee_id'] != 'Unknown']
 
     # --- 2. NORMALIZATION STEP ---
     print("Separating data collections...")
@@ -68,31 +82,52 @@ def clean_and_migrate_pipeline(file_path="employee_attendance_productivity.csv")
     df_employees = df_sorted.groupby('employee_id').last().reset_index()
     df_employees = df_employees[['employee_id', 'employee_name', 'department', 'position', 'monthly_salary']]
     
-    # Extract daily transaction log table records (Matching your 6 columns exactly)
+    # Extract daily transaction log table records
     df_logs = df_raw[['employee_id', 'date', 'attendance_status', 'hours_worked', 'tasks_completed', 'performance_rating']]
 
     # --- 3. DATABASE INGESTION STEP ---
-    print("Uploading clean master data to SQL server...")
+    print("Flushing old data and uploading clean master data to SQL server...")
     
-    # Ultimate safeguard function to catch float nan, numpy nan, and explicit "nan" string anomalies
+    # Clean tables completely to prevent merging old messy runs with new uploads
+    try:
+        cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
+        cursor.execute("TRUNCATE TABLE attendance_logs;")
+        cursor.execute("TRUNCATE TABLE employees;")
+        cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")
+        conn.commit()
+    except Error as db_err:
+        print(f"Warning clearing tables: {db_err}")
+    
+    # --- DEBUGGING CHECKPOINT 1: PRE-UPLOAD ---
+    print("\n" + "="*40)
+    print("CHECKPOINT 1: DATA LEAVING CLEANER")
+    print("="*40)
+    print(f"Total Logs to Upload: {len(df_logs)}")
+    print(f"Date range: {df_logs['date'].min()} to {df_logs['date'].max()}")
+    print("\nMissing Values in Logs:")
+    print(df_logs.isnull().sum())
+    print("\nSample of clean logs (first 5 rows):")
+    print(df_logs[['employee_id', 'date', 'hours_worked', 'performance_rating']].head(5))
+    print("="*40 + "\n")
+
     def clean_tuple(record):
         cleaned = []
         for val in record:
             if pd.isna(val) or val == 'nan' or val == 'None' or val == 'NaN':
-                cleaned.append(None) # Maps directly to a clean SQL NULL
+                cleaned.append(None)
             else:
                 cleaned.append(val)
         return tuple(cleaned)
     
     # Load unique employees
     insert_emp_query = """
-        INSERT IGNORE INTO employees (employee_id, employee_name, department, position, monthly_salary)
+        INSERT INTO employees (employee_id, employee_name, department, position, monthly_salary)
         VALUES (%s, %s, %s, %s, %s)
     """
     emp_records = [clean_tuple(x) for x in df_employees.to_numpy()]
     cursor.executemany(insert_emp_query, emp_records)
     
-    # Load transactional logs (Matching your 6 columns exactly)
+    # Load transactional logs
     insert_log_query = """
         INSERT INTO attendance_logs (employee_id, date, attendance_status, hours_worked, tasks_completed, performance_rating)
         VALUES (%s, %s, %s, %s, %s, %s)
@@ -105,9 +140,6 @@ def clean_and_migrate_pipeline(file_path="employee_attendance_productivity.csv")
     
     cursor.close()
     conn.close()
-
-if __name__ == "__main__":
-    clean_and_migrate_pipeline("data/employee_attendance_productivity.csv")
 
 def fetch_all_employees():
     """Fetches all employee records from the SQL server for the GUI grid."""
@@ -127,3 +159,6 @@ def fetch_all_employees():
         conn.close()
         
     return records
+
+if __name__ == "__main__":
+    clean_and_migrate_pipeline()

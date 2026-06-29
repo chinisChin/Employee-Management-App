@@ -13,3 +13,8 @@ secrets.ini
 # IDE configurations
 .vscode/
 .idea/
+
+# Ignore Python bytecode compilation caches
+__pycache__/
+*.pyc
+src/__pycache__/

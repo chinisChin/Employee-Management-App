@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from scipy import stats
 from database import get_db_connection
 
-# Replicating your original code palette configurations perfectly
 COLORS = ['#2C7BB6', '#F4A261', '#57CC99', '#E76F51', '#A8DADC', '#264653', '#E9C46A', '#F4A261']
 ACCENT = '#2C7BB6'
 
@@ -40,15 +39,45 @@ def generate_selected_chart(chart_type):
         FROM attendance_logs a 
         JOIN employees e ON a.employee_id = e.employee_id;
     """
-    df = pd.read_sql(query, conn)
-    conn.close()
-    if df.empty: return None
+    
+    cursor = conn.cursor(dictionary=True)
+    try:
+        cursor.execute(query)
+        rows = cursor.fetchall()
+    except Exception as e:
+        print(f"Error querying dashboard data: {e}")
+        rows = []
+    finally:
+        cursor.close()
+        conn.close()
+        
+    if not rows: return None
+    
+    df = pd.DataFrame(rows)
 
+    # Convert MySQL Decimal objects into standard Pandas floats
+    numeric_columns = ['hours_worked', 'tasks_completed', 'performance_rating', 'monthly_salary']
+    for col in numeric_columns:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0.0)
+
+    # Structural transformations for plotting strings
     df['date'] = pd.to_datetime(df['date'])
+    df = df.sort_values('date') # Crucial for clean trend lines!
     df['month'] = df['date'].dt.to_period('M')
     df['month_str'] = df['month'].astype(str)
 
-    # Creating separate styling parameters matching your visualization script exactly
+    # --- DEBUGGING CHECKPOINT 2: POST-FETCH ---
+    print("\n" + "="*40)
+    print("CHECKPOINT 2: DATA ENTERING DASHBOARD")
+    print("="*40)
+    print(f"Total Rows Fetched from SQL: {len(df)}")
+    print(f"Are there duplicates? {df.duplicated(subset=['employee_id', 'date']).sum()} found.")
+    print("\nSample of data fed to Matplotlib (first 5 rows):")
+    print(df[['employee_id', 'date', 'hours_worked', 'performance_rating']].head(5))
+    print("="*40 + "\n")
+    
+
     fig, ax = plt.subplots(figsize=(7, 4.2), dpi=100)
     ax.set_facecolor('#F9F9F9')
     fig.patch.set_facecolor('white')
@@ -94,9 +123,12 @@ def generate_selected_chart(chart_type):
         for pos in positions:
             subset = df[df['position'] == pos]
             ax.scatter(subset['hours_worked'], subset['performance_rating'], label=pos, color=pos_colors[pos], alpha=0.6, s=40, edgecolors='white', linewidth=0.5)
-        slope, intercept, r, p, _ = stats.linregress(df['hours_worked'], df['performance_rating'])
-        x_line = np.linspace(df['hours_worked'].min(), df['hours_worked'].max(), 100)
-        ax.plot(x_line, slope * x_line + intercept, color='#333333', linewidth=1.8, linestyle='--', label=f'Trend (r = {r:.3f})')
+        
+        if len(df) > 1 and df['hours_worked'].nunique() > 1:
+            slope, intercept, r, p, _ = stats.linregress(df['hours_worked'], df['performance_rating'])
+            x_line = np.linspace(df['hours_worked'].min(), df['hours_worked'].max(), 100)
+            ax.plot(x_line, slope * x_line + intercept, color='#333333', linewidth=1.8, linestyle='--', label=f'Trend (r = {r:.3f})')
+        
         ax.set_title('Hours Worked vs. Performance Rating by Position', fontsize=12, fontweight='bold', pad=15, color='black')
         ax.legend(fontsize=8, loc='upper left')
         ax.tick_params(colors='black')
@@ -104,7 +136,7 @@ def generate_selected_chart(chart_type):
 
     elif chart_type == "5. Distribution Histogram of Hours":
         n, bins, patches = ax.hist(df['hours_worked'], bins=20, color=ACCENT, edgecolor='white', linewidth=0.8, alpha=0.85)
-        norm_vals = n / n.max()
+        norm_vals = n / n.max() if n.max() > 0 else n
         for patch, val in zip(patches, norm_vals):
             patch.set_facecolor(plt.cm.Blues(0.3 + val * 0.6))
         ax.axvline(df['hours_worked'].mean(), color='#E76F51', linestyle='--', linewidth=1.8, label=f'Mean: {df["hours_worked"].mean():.2f} hrs')
@@ -129,4 +161,5 @@ def generate_selected_chart(chart_type):
         ax.spines[['top', 'right']].set_visible(False)
 
     plt.tight_layout()
+    fig.patch.set_facecolor('white') # Explicitly force white background wrapper for file exports
     return fig
